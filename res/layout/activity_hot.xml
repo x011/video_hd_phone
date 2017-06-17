@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="8.5"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:id="@+id/hot_lin1"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hot_lin2"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="440dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp" >
+
+            <LinearLayout
+                android:id="@+id/hot_lin3"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hot_lin4"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img4"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text4"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hot_lin5"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/hot_lin6"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img6"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text6"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hot_lin7"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageView
+                        android:id="@+id/hot_img7"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/hot_text7"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/black_cc"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="@dimen/hot_textsize" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="2dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/right_line" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="585dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1.5" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/hot_homeLine"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/home" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/home_home"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/hot_hisLine"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/bg_program"
+                android:focusable="true"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/history" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/home_history"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

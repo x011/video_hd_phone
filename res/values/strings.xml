@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="app_name">Cloud VOD</string> -->
+    <!-- 祥云直播 -->
+    <string name="app_name">E VOD HD</string> <!-- 粤港视界 -->
+    <string name="action_settings">Settings</string>
+    <string name="determine">Determine</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Eixt</string>
+    <string name="sure">Sure</string>
+
+    <!-- welcome activity -->
+    <string name="prompt">Prompt</string>
+    <string name="network_exception">Fetching list failed, please try again later</string>
+    <string name="network_not_connect">Network connection failure, please check the network</string>
+    <string name="auth_fail">Authorization failed, please contact service provider</string>
+    <string name="content_is_null">The content is null</string>
+
+    <!-- vod activity -->
+    <string name="no_vod">No drama</string>
+    <string name="load_fail">Load data fail</string>
+    <string name="cache_new">Update success</string>
+    <!-- vod player -->
+    <string name="sprit">/</string>
+    <string name="duration">00:00:00</string>
+    <string name="exit_vod">Determined not to watch it?</string>
+    <string name="anthology">Episode</string>
+    <string name="page"></string>
+    <string name="try_agin">Retry</string>
+    <string name="player_null">Please install the player, otherwise unable to play</string>
+    <string name="not_look_vod">Determined not to exit it?</string>
+    <string name="softupdate">Soft update</string>
+    <string name="update">Update</string>
+    <string name="start_download">Start download apk background</string>
+    <string name="to_star">CAST:</string>
+    <string name="director">Director:</string>
+    <string name="release_time">Release date:</string>
+    <string name="introduction">Description:</string>
+    <string name="play">Play</string>
+    <string name="loading">Loading</string>
+    <string name="history_prompt">The last time to watch at: </string>
+    <string name="di">set </string>
+    <string name="ji"></string>
+    <string name="last_play">Last Play</string>
+    <string name="input_password">Enter passowrd(number)</string>
+    <string name="input_password_agin">Re-enter(number)</string>
+    <string name="modify">Modify</string>
+    <string name="password_not_null">Please input password</string>
+    <string name="password_not_match">Two passwords do not match</string>
+    <string name="password_wrong">Password is wrong</string>
+    <string name="password_change">Change password</string>
+    <string name="password_setting">Password setting</string>
+    <string name="reload">Reload</string>
+    <string name="password_prompt">[Settings -> Applications] clear this application data can reset your password</string>
+    <string name="data_update">Data has been updated</string>
+    <string name="data_err">Data error,please restart or clean app data</string>
+    <string name="data_parsing_err">Data Parsing Exception</string>
+    <string name="get_cache_left_menu">read local data error</string>
+    <string name="get_program_detail_failure">Loading drama detail info failure</string>
+    <string name="drama_year_prompt">Year&#160;:</string>
+    <string name="drama_regisseur_prompt">Author&#160;:</string>
+    <string name="drama_leading_actor_prompt">Actor&#160;:</string>
+    <string name="drama_detail_info">Drama&#160;:</string>
+    <string name="home_history">History</string>
+    <string name="home_search">Search</string>
+    <string name="home_hot">HOT</string>
+    <string name="home_collect">Collection</string>
+    <string name="vod_add_coll">ADD Collection</string>
+    <string name="vod_cancel_coll">Cancel collection</string>
+    <string name="history_info"> (Reserve 50)</string>
+    <string name="home_home">Home</string>
+    <string name="load_list">Updating the list of programs</string>
+    <string name="load_list_error">Failed to update the list of programs, can be selected skip.</string>
+    <string name="load_list_oldlist">Skip</string>
+    <string name="load_list_info">You are the first to use the APP, you can not skip, please try again.</string>
+    
+    <string name="search_txt">Enter initial letters</string>
+    <string name="back_txt">Back</string>
+    <string name="space_txt">Space</string>
+    <string name="clear_txt">Reset</string>
+    <string name="example_txt">Example:</string>
+    <string name="txt1">Such as search《</string>
+    <string name="txt2">》,you can enter </string>
+    <string name="hotsearch_txt">The most searched</string>
+    <string name="resultsearch_txt">The results</string>
+    <string name="txt3">Sorry,no search results</string>
+    <string name="txt4">You can try another keyword!</string>
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_update_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/index_loadlist_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="bottom"
+            android:layout_marginBottom="100dp"
+            android:clipChildren="false"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/getlist_try_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal" >
+  
+                    <TextView
+                        style="@style/text_23_f1f1f1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|bottom"
+                        android:text="@string/load_list" />
+                    <ImageView
+                        android:id="@+id/getlist_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_gravity="center|bottom" />
+                    <Button
+	                    android:id="@+id/getlist_gecache_bt2"
+	                    android:layout_width="100dp"
+	                    android:layout_height="52dp"
+	                    android:layout_gravity="center|bottom"
+	                    android:layout_marginLeft="30dp"
+	                    android:background="@drawable/bg_p_exit"
+	                    android:text="@string/load_list_oldlist"
+	                    android:textSize="30sp"
+	                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/getlist_error_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/text_23_f1f1f1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/load_list_error" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/getlist_retry_bt"
+                        android:layout_width="100dp"
+                        android:layout_height="52dp"
+                        android:background="@drawable/bg_p_exit"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="@string/reload"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/getlist_gecache_bt"
+                        android:layout_width="100dp"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="80dp"
+                        android:background="@drawable/bg_p_exit"
+                        android:text="@string/load_list_oldlist"
+                        android:textSize="30sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <com.moonclound.android.view.AppInfoLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginTop="20dp"
+	            android:orientation="horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+    
+
+</LinearLayout>

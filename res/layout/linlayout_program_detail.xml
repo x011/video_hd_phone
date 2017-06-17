@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="140dp" 
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:visibility="gone">
+
+        <TextView
+            style="@style/style_drama_detail_prompt"
+            android:text="@string/drama_year_prompt" />
+        
+        <TextView
+            android:id="@+id/drama_year"
+            style="@style/style_drama_detail"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/style_drama_detail_prompt"
+            android:text="@string/drama_regisseur_prompt" />
+        
+        <TextView
+            android:id="@+id/drama_author"
+            style="@style/style_drama_detail"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/style_drama_detail_prompt"
+            android:text="@string/drama_leading_actor_prompt" />
+        
+        <TextView
+            android:id="@+id/drama_leading_actor"
+            style="@style/style_drama_detail"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/style_drama_detail_prompt"
+            android:text="@string/drama_detail_info" />
+        
+        <TextView
+            android:id="@+id/drama_detail_info"
+            style="@style/style_drama_detail"/>
+    </LinearLayout>
+
+</LinearLayout>

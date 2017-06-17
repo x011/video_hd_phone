@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="app_name">祥雲視頻</string> -->
+    <string name="app_name">易點播高清</string>
+    <string name="action_settings">Settings</string>
+	
+    <string name="determine">確定</string>
+    <string name="cancel">取消</string>
+    <string name="exit">退出</string>
+    <string name="sure">確定</string>
+    
+    <!-- welcome activity  -->
+    <string name="prompt">提示</string>
+	<string name="network_not_connect">網絡連接失敗，請檢查網絡</string>
+	<string name="auth_fail">授權失敗，請聯繫服務提供商</string>
+	<string name="network_exception">取列表失敗，請稍後重試</string>
+	<string name="content_is_null">節目列表為空</string>
+	<string name="cache_new">更新成功</string>
+	<!-- vod activity -->
+	<string name="no_vod">無劇集</string>
+	<string name="load_fail">加載失敗</string>
+	
+    <!-- vod player-->
+    <string name="sprit">/</string>
+	<string name="duration">00:00:00</string>
+	<string name="exit_vod">確定不再觀看了嗎?</string>
+	<string name="anthology">選集</string>
+	<string name="page">頁</string>
+	<string name="try_agin">重試</string>
+	<string name="player_null">請安裝播放器，否則無法播放視頻</string>
+	<string name="not_look_vod">確定退出嗎?</string>
+	<string name="softupdate">软件更新</string>
+    <string name="update">更新</string>
+    <string name="start_download">開始後臺下載安裝包</string>
+    
+    <string name="to_star">主演：</string>
+	<string name="director">導演：</string>
+	<string name="release_time">上映時間：</string>
+	<string name="introduction">簡介：</string>
+	
+	<string name="play">點擊播放</string>
+	<string name="loading">加載中</string>
+	<string name="history_prompt">上次觀看到: </string>
+	<string name="di">第</string>
+	<string name="ji">集</string>
+	<string name="last_play">繼續播放</string>
+	<string name="input_password">輸入密碼(数字)</string>
+	<string name="input_password_agin">再次輸入密碼(数字)</string>
+	<string name="modify">修改密碼</string>
+	<string name="password_not_null">請再次輸入密碼</string>
+	<string name="password_not_match">兩次輸入密碼不一致</string>
+	<string name="password_wrong">密碼輸入錯誤</string>
+	<string name="password_change">修改密碼</string>
+	<string name="password_setting">密碼設置</string>
+	<string name="reload">重試</string>
+	<string name="password_prompt">[設置->應用] 清除此應用數據即可重置密碼</string>
+	<string name="data_update">數據已更新</string>
+	<string name="data_err">數據出錯，請重啟應用或者清理數據</string>
+	
+	<string name="drama_year_prompt">日期&#160;:</string>
+	<string name="drama_regisseur_prompt">導演&#160;:</string>
+	<string name="drama_leading_actor_prompt">主演&#160;:</string>
+	<string name="drama_detail_info">劇情&#160;:</string>
+	
+	<string name="home_history">觀看曆史</string>
+	<string name="home_search">搜索</string>
+	<string name="home_hot">熱門推薦</string>
+	<string name="home_collect">我的收藏</string>
+	<string name="vod_add_coll">加入收藏</string>
+	<string name="vod_cancel_coll">取消收藏</string>
+	<string name="history_info"> (Reserve 50)</string>
+	<string name="home_home">首頁</string>
+	<string name="load_list">正在更新節目列表</string>
+	<string name="load_list_error">更新節目列表失敗,可選擇跳過直接進入</string>
+	<string name="load_list_oldlist">跳過</string>
+	<string name="load_list_info">您是首次使用該APP,無法跳過,請重試</string>
+	
+	<string name="search_txt">輸入影片、節目、影人首字母</string>
+    <string name="back_txt">退格</string>
+    <string name="space_txt">空格</string>
+    <string name="clear_txt">清空</string>
+    <string name="example_txt">示例:</string>
+    <string name="txt1">如搜《</string>
+    <string name="txt2">》可輸入</string>
+    <string name="hotsearch_txt">熱門搜索</string>
+    <string name="resultsearch_txt">搜索結果</string>
+    <string name="txt3">很抱歉，沒有搜索結果</string>
+    <string name="txt4">換個關鍵詞試試吧！</string>
+</resources>

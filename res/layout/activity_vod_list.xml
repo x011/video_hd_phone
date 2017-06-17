@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="540dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp" >
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/imge_bg"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/vods_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@+id/container_vod" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/vod_name"
+                    style="@style/text_28_f2f2f2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/replay"
+                    style="@style/text_24_f2f2f2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:background="@drawable/btn_film"
+                    android:text="@string/last_play"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_film_introduce"
+                android:layout_width="700dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/to_star" />
+
+                    <TextView
+                        android:id="@+id/film_detail_starring"
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/director" />
+
+                    <TextView
+                        android:id="@+id/film_detail_Director"
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/release_time" />
+
+                    <TextView
+                        android:id="@+id/film_detail_Showtimes"
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/introduction" />
+
+                    <TextView
+                        android:id="@+id/film_detail_brief"
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="4" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/vod_anthology"
+                style="@style/text_20_f2f2f2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/anthology" />
+
+            <TextView
+                android:id="@+id/vod_no_vod"
+                style="@style/text_24_f2f2f2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_is_null"
+                android:visibility="gone" />
+
+            <GridView
+                android:id="@+id/vod_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="360dp"
+                android:layout_marginTop="10dp"
+                android:horizontalSpacing="15dp"
+                android:listSelector="@drawable/bg_vod"
+                android:verticalSpacing="15dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/vod_play_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_film"
+                android:text="@string/play"
+                android:textSize="28dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/vod_load_prompt"
+                android:layout_width="500dp"
+                android:layout_height="360dp"
+                android:orientation="vertical" >
+
+                <ProgressBar
+                    android:id="@+id/vod_load_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+                <LinearLayout
+                    android:id="@+id/vod_prompt"
+                    android:layout_width="500dp"
+                    android:layout_height="370dp"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@+id/vod_prompt_text"
+                        style="@style/text_24_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/load_fail" />
+
+                    <Button
+                        android:id="@+id/vod_reload"
+                        style="@style/text_20_f2f2f2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_prompt"
+                        android:text="@string/try_agin"
+                        android:textColor="@color/color_btn_play" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/container_page_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/vod_current_page"
+                    style="@style/text_20_f2f2f2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="5dp" />
+
+                <TextView
+                    android:id="@+id/vod_page_show"
+                    style="@style/text_20_dcdcdc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingRight="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_prompt_hisotry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/text_promtp_history"
+                    style="@style/text_20_dcdcdc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

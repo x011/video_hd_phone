@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:minHeight="75dp"
+    android:gravity="center" 
+    android:background="#400c0c0e"
+    >
+    
+    <TextView 
+        android:id="@+id/catgory_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+		style="@style/text_30_f2f2f2"
+		android:singleLine="true"
+		android:ellipsize="marquee"
+        />
+
+</RelativeLayout>

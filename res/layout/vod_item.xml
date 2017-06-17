@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center" 
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    >
+    
+    
+    <TextView 
+        android:id="@+id/catgory_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+		style="@style/text_22_f2f2f2"
+		android:singleLine="true"
+		android:ellipsize="marquee"
+		android:textColor="@color/color_navigation"
+        />
+
+</LinearLayout>
+
+
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:minHeight="275dp"
+    >
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:id="@+id/program_item_image"
+        android:paddingBottom="5dp"
+        android:layout_margin="3dp"/>
+    
+    <TextView 
+        android:id="@+id/program_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_20_f2f2f2"
+        android:gravity="center"
+        android:padding="4dp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textColor="@color/color_navigation"
+        />
+
+</LinearLayout> -->
