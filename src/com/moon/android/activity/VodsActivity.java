@@ -30,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -39,6 +40,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ev.android.evodshd.R;
+import com.ev.player.MyPlayerActivity;
+import com.ev.player.history.HistoryDAO;
+import com.ev.player.history.HistoryItem;
+import com.ev.player.model.VodVideo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moon.android.iptv.arb.film.Configs;
@@ -47,12 +52,8 @@ import com.moon.android.model.Ad;
 import com.moon.android.model.Drama;
 import com.moon.android.model.VodProgram;
 import com.moon.android.model.VodProgramDetail;
-import com.ev.player.MyPlayerActivity;
-import com.ev.player.history.HistoryDAO;
-import com.ev.player.history.HistoryItem;
 import com.moon.android.moonplayer.service.AdService;
 import com.moon.android.moonplayer.service.ProgramDetailService;
-import com.ev.player.model.VodVideo;
 import com.mooncloud.android.iptv.adapter.VideoAdapter;
 import com.moonclound.android.iptv.util.DbUtil;
 import com.moonclound.android.iptv.util.Logger;
@@ -72,6 +73,8 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	private VodProgram mVodProgram;
 	private TextView mTextVodName;
 	private GridView mGridVod;
+	private LinearLayout mLinearPage_bt;
+	private ImageButton mIB_PageUp,mIB_PageDown;
 	private List<Drama> mListVodVideo;
 	private ImageView mImageView;
 	private int mCurrentPage;
@@ -123,7 +126,16 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_vods);
+		if (getResources().getString(R.string.screen_type).equals("600")){
+			setContentView(R.layout.activity_vods_600);
+			mLinearPage_bt = (LinearLayout) findViewById(R.id.page_bt);
+			mIB_PageUp = (ImageButton) findViewById(R.id.page_up);
+			mIB_PageDown = (ImageButton) findViewById(R.id.page_down);
+			mIB_PageUp.setOnClickListener(mPageClickListener);
+			mIB_PageDown.setOnClickListener(mPageClickListener);
+		}else{
+			setContentView(R.layout.activity_vods);
+		}
 
 		initHandler();
 		initOption();
@@ -136,6 +148,29 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		// new Thread(mHistoryLoadR).start();
 	}
 
+	private OnClickListener mPageClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch (v.getId()) {
+			case R.id.page_up:
+				if (mCurrentPage == 0) 
+					return;
+				mCurrentPage--;
+				fillVodGrid(mCurrentPage);
+				break;
+			case R.id.page_down:
+				if (mCurrentPage + 1 == mTotalPage)
+					return;
+				mCurrentPage++;
+				fillVodGrid(mCurrentPage);
+				break;
+			default:
+				break;
+			}
+		}
+	};
 	private void isColl() {
 		// TODO Auto-generated method stub
 		Boolean iscoll = db.isSaveColl(mVodProgram.getSid());
@@ -708,6 +743,10 @@ public class VodsActivity extends Activity implements OnKeyListener {
 				caculateTotalPage();
 				mContainerPrompt.setVisibility(View.GONE);
 				mGridVod.setVisibility(View.VISIBLE);
+				if (mTotalPage>1){
+					if (mLinearPage_bt!=null)
+						mLinearPage_bt.setVisibility(View.VISIBLE);
+				}
 				mVodAnthology.setVisibility(View.VISIBLE);
 				fillVodGrid(0);
 				isLoadList = true;

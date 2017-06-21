@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ev.android.evodshd.R;
+import com.ev.player.model.Model_history;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ev.player.model.Model_history;
 import com.moon.android.model.VodProgram;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 

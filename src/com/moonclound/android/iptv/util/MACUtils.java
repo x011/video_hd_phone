@@ -49,7 +49,8 @@ public class MACUtils {
 			str = str.replace(":", "").trim();
 		if (str.contains("-"))
 			str = str.replace("-", "").trim();
-		return str.toLowerCase();
+//		return str.toLowerCase();
+		return "112233445566";
 	}
 	public static String getWifiMac(){
         String str="";
