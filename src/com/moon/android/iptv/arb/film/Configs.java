@@ -84,7 +84,7 @@ public class Configs {
 		} 
 		/**获取授权地址*/
 		public static String getAuthApi(){
-			return HOST+"App/auth?appid="+APP_ID+"&mac="+MAC+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+"&Model="+android.os.Build.MODEL+"&cpukey="+DeviceFun.GetFileCpu();
+			return HOST+"App/auth?appid="+APP_ID+"&mac="+MAC+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+"&cpukey="+DeviceFun.GetFileCpu();
 		}
 		/**获取二级菜单基地址，后面还要加CID*/
 		public static String getSeconMenuApi(){

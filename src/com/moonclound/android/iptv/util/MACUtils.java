@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.Reader;
 
+import com.moon.android.iptv.arb.film.Configs;
+
 public class MACUtils {
 	public static String getMac2() {
 		FileInputStream localFileInputStream;
@@ -49,8 +51,11 @@ public class MACUtils {
 			str = str.replace(":", "").trim();
 		if (str.contains("-"))
 			str = str.replace("-", "").trim();
-//		return str.toLowerCase();
-		return "112233445566";
+		if(Configs.debug){
+			return "112233445566";
+		}else{
+			return str.toLowerCase();
+		}
 	}
 	public static String getWifiMac(){
         String str="";
