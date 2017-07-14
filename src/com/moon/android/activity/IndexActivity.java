@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.forcetech.android.ForceTV;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MyApplication;

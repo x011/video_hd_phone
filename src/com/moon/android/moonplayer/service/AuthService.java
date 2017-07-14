@@ -6,6 +6,7 @@ import net.tsz.afinal.http.AjaxParams;
 import android.os.Handler;
 import android.os.Message;
 
+import com.ev.player.util.DeviceFun;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.moon.android.iptv.arb.film.Configs;
@@ -90,11 +91,19 @@ public class AuthService {
 
 	public void findFromNet(final boolean flag) {
 		FinalHttp finalHttp = new FinalHttp();
-		logger.i("当前主机为=" + Configs.URL.HOST);
-		logger.i("授权API=" + Configs.URL.getAuthApi());
-//		System.out.println("URL = "+Configs.URL.getAuthApi());
 		AjaxParams params=new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+		params.put("cpukey", DeviceFun.GetFileCpu());
 		params.put("Model", android.os.Build.MODEL);
+		
+//		System.out.println("mac = "+Configs.URL.MAC);
+//		System.out.println("cpuid = "+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+//		System.out.println("cpukey = "+DeviceFun.GetFileCpu());
+//		System.out.println("appid = "+Configs.APPID);
+//		System.out.println("Model = "+android.os.Build.MODEL);
+		
 		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {

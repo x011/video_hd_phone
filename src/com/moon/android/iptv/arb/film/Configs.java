@@ -12,8 +12,8 @@ public class Configs {
 	public static final String NORDSPWD = "0";
 	public static final String ISDSPWD = "1";// 限制级影片
 	/**Need change data start**/
-	public static final boolean debug = true;
-	public static final String APPID = "22203";
+	public static final boolean debug = false;
+	public static final String APPID = "70002";//22203
 	public static final String PKG_NAME = "com.ev.android.evodshd";
 	public static boolean isLastNeedPassword = true;  //最后一项输入密码
 	/**Need change data end **/
@@ -56,14 +56,14 @@ public class Configs {
 	}
 	
 	public static class URL{
-		private static final String APP_ID=APPID;
-		private static final String MAC=MACUtils.getMac();
+		public static final String APP_ID=APPID;
+		public static final String MAC=MACUtils.getMac();
 		
 		//vodchina1.ibcde.net(xiangYunZhiBo)
 		//vod1.ibcde.net(yueGangShiJie)
-		public static final String HOST1="http://hdvod.etvhk.com/Api/";//正式库1
-		public static final String HOST2="http://hdvod.etvhk.com/Api/";//正式库2
-		public static final String HOST3="http://hdvod.etvhk.com/Api/";//正式库3
+		public static final String HOST1="http://vodplus.etvhk.com/Api/";//正式库1
+		public static final String HOST2="http://vodplus.etvb.hk/Api/";//正式库2
+		public static final String HOST3="http://vodplus.iesaytv.com/Api/";//正式库3  http://hdvod.etvhk.com/Api/
 		public static String HOST=HOST1;//正式库
 //		 
 //		public static final String HOST1="http://23.89.145.178:9011/Api/";//测试库1
@@ -72,11 +72,11 @@ public class Configs {
 //		public static String HOST=HOST1;//测试库
 		  
 		public static String getHot(){
-			return HOST+"VideoApi/hot?appid="+APP_ID+"&mac="+MAC;
+			return HOST+"VideoApi/hot?";
 		}
 		/**获取列表缓存地址*/
 		public static String getListCache(){
-			return HOST+"VideoApi/AllLists?appid="+APP_ID+"&mac="+MAC;
+			return HOST+"VideoApi/AllLists?";
 		}
 		/**获取授权地址*/
 		public static String getLeftMenuApi(){
@@ -84,7 +84,7 @@ public class Configs {
 		} 
 		/**获取授权地址*/
 		public static String getAuthApi(){
-			return HOST+"App/auth?appid="+APP_ID+"&mac="+MAC+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+"&cpukey="+DeviceFun.GetFileCpu();
+			return HOST+"App/auth?";
 		}
 		/**获取二级菜单基地址，后面还要加CID*/
 		public static String getSeconMenuApi(){
@@ -96,23 +96,22 @@ public class Configs {
 		}
 		/**获取剧集基地址*/
 		public static String getDramaApi(){
-			return HOST+"VideoApi/cli?appid="+APP_ID+"&mac="+MAC+"&sid=";
+			return HOST+"VideoApi/cli?";
 		}
 		/**get vod program detail info*/
 		public static String getProgramDetailApi(){
-			return HOST+"VideoApi/cliInfo?appid="+APP_ID+"&mac="+MAC+"&sid=";
+			return HOST+"VideoApi/cliInfo?";
 		}
-		
+		//-1 http
 		public static String getAppMsgApi(){
 			return "http://etvhk.com/AppMsg.php?mac="+"?appid="+ APPID + "&mac=" + MAC;
 		}
-		
+		//-1 http
 		public static String getAppUpdateApi(){
 			return "http://etvhk.com/AppUp.php" +"?appid="+ APPID + "&mac=" + MAC;
 		}
-		
 		public static String getAdApi(){
-			return HOST +"VideoAd?mac="+MAC+"&appid="+APP_ID+"&cid=";
+			return HOST +"VideoAd?";
 		}
 	}
 	

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.model.Navigation;
 
 public class LeftMenuAdapter extends BaseAdapter<Navigation> {

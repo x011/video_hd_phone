@@ -11,7 +11,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 
 @SuppressLint("NewApi")
 public class CustomToast extends Toast {

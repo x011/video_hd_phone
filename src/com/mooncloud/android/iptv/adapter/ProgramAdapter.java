@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudtv.sdk.utils.Logger;
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.model.VodProgram;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

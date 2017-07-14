@@ -18,6 +18,8 @@ public class HostUtil {
 		}else if(Configs.URL.HOST.equals(Configs.URL.HOST3)){
 			Configs.URL.HOST=Configs.URL.HOST1;
 		}
+		System.out.println("===================================================");
+		System.out.println("HOST="+Configs.URL.HOST);
 		Logger.getInstance().i("HOST="+Configs.URL.HOST);
 		changeCount++;
 	}

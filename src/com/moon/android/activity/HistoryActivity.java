@@ -2,7 +2,7 @@ package com.moon.android.activity;
 
 import java.util.List;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.ev.player.history.HistoryDBHelper;
 import com.ev.player.model.Model_history;
 import com.google.gson.Gson;

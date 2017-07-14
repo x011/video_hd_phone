@@ -1,6 +1,6 @@
 package com.moon.android.activity;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.moonplayer.service.ListCacheService;
 
 import android.app.Activity;

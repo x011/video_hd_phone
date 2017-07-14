@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 
 import android.widget.BaseAdapter;
 

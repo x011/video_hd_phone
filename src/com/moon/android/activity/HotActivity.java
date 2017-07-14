@@ -5,8 +5,9 @@ import java.util.List;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moon.android.iptv.arb.film.Configs;
@@ -58,7 +59,10 @@ public class HotActivity extends Activity {
 	private void initList() {
 		// TODO Auto-generated method stub
 		FinalHttp fn=new FinalHttp();
-		fn.post(Configs.URL.getHot(), new AjaxCallBack<Object>() {
+		AjaxParams params = new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		fn.post(Configs.URL.getHot(), params, new AjaxCallBack<Object>() {
 
 			@Override
 			public void onSuccess(Object t) {

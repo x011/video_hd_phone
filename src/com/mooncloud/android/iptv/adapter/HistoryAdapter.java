@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.ev.player.model.Model_history;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

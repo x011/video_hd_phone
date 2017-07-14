@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -39,7 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.ev.player.MyPlayerActivity;
 import com.ev.player.history.HistoryDAO;
 import com.ev.player.history.HistoryItem;
@@ -55,6 +56,7 @@ import com.moon.android.model.VodProgramDetail;
 import com.moon.android.moonplayer.service.AdService;
 import com.moon.android.moonplayer.service.ProgramDetailService;
 import com.mooncloud.android.iptv.adapter.VideoAdapter;
+import com.moonclound.android.iptv.util.AppUtils;
 import com.moonclound.android.iptv.util.DbUtil;
 import com.moonclound.android.iptv.util.Logger;
 import com.moonclound.android.iptv.util.MyDecode;
@@ -121,12 +123,14 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	private TextView mAdTimePrompt;
 	private int mSecondRemain;
 	private Timer mSecondTimer;
+	private String tvOrPad = "0";//0为机顶盒，1为pad
 
 	// private Button mBt_collect,mBt_cacel_coll;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getResources().getString(R.string.screen_type).equals("600")){
+		if(AppUtils.isTablet4(VodsActivity.this)){
+			tvOrPad = "1";
 			setContentView(R.layout.activity_vods_600);
 			mLinearPage_bt = (LinearLayout) findViewById(R.id.page_bt);
 			mIB_PageUp = (ImageButton) findViewById(R.id.page_up);
@@ -134,9 +138,9 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			mIB_PageUp.setOnClickListener(mPageClickListener);
 			mIB_PageDown.setOnClickListener(mPageClickListener);
 		}else{
+			tvOrPad = "0";
 			setContentView(R.layout.activity_vods);
 		}
-
 		initHandler();
 		initOption();
 		getIntentData();
@@ -252,7 +256,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 
 	private void getVodDetailData() {
 		mProgramDetailService = new ProgramDetailService(mVodDetailHandler);
-		mProgramDetailService.initList(Configs.URL.getProgramDetailApi() + mVodProgram.getSid(), mVodProgram.getSid());
+		mProgramDetailService.initList(Configs.URL.getProgramDetailApi(), mVodProgram.getSid());
 	}
 
 	private void initWidget() {
@@ -460,9 +464,11 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			// reload
 			if (null != mVodProgram) {
 				FinalHttp finalHttp = new FinalHttp();
-				String url = Configs.URL.getDramaApi() + mVodProgram.getSid();
-				logger.i("request ur = " + url);
-				finalHttp.get(StringUtil.deleteSpace(url), mLoadVodsCallBack);
+				AjaxParams params = new AjaxParams();
+				params.put("appid", Configs.URL.APP_ID);
+				params.put("mac", Configs.URL.MAC);
+				params.put("sid", mVodProgram.getSid());
+				finalHttp.post(Configs.URL.getDramaApi(), params, mLoadVodsCallBack);
 			}
 		}
 	};
@@ -560,7 +566,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		}
 
 		ComponentName componetName = new ComponentName(this, MyPlayerActivity.class);
-		System.out.println("MyPlayerActivity");
+		System.out.println("run .. APlayer.. ");
 		try {
 			Intent intent = new Intent();
 			if (mAd != null) {
@@ -570,6 +576,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			intent.putExtra("programLogo", mVodProgram.getLogo());
 			intent.putExtra("programName", mVodProgram.getName());
 			intent.putExtra("Cid", mCid);
+			intent.putExtra("tvOrPad", tvOrPad);
 			Gson gson = new Gson();
 			String ProgramJson = gson.toJson(mVodProgram);
 
@@ -592,10 +599,12 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	private void getVodData() {
 		FinalHttp finalHttp = new FinalHttp();
 		if (null != mVodProgram) {
-			String url = Configs.URL.getDramaApi() + mVodProgram.getSid();
-			logger.i("节目列表点击后请求剧集的URL=" + url);
+			AjaxParams params = new AjaxParams();
+			params.put("appid", Configs.URL.APP_ID);
+			params.put("mac", Configs.URL.MAC);
+			params.put("sid", mVodProgram.getSid());
 			if (null != mVodProgram.getSid())
-				finalHttp.get(StringUtil.deleteSpace(url), mLoadVodsCallBack);
+				finalHttp.post(Configs.URL.getDramaApi(), params, mLoadVodsCallBack);
 			else {
 				new CustomToast(VodsActivity.this, getString(R.string.data_err)).show();
 				if (null != mLoadingAnim)

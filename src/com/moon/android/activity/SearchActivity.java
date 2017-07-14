@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.model.VodProgram;
 import com.moon.android.moonplayer.service.ListCacheService;

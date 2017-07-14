@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ev.android.evodshd"
+    package="com.ev.android.evodshd.plus"
     android:versionCode="20170406"
     android:versionName="20170406" >
 
@@ -41,6 +41,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    
     <application
         android:name="com.moon.android.iptv.arb.film.MyApplication"
         android:allowBackup="true"

@@ -30,7 +30,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.broadcast.MsgBroadcastReceiver;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MsgService;
@@ -328,6 +328,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 					mVodProgramList.addAll(list);
 					mProgramAdapter.notifyDataSetChanged();
 					mGridVodShow.setSelection(0);
+					mGridVodShow.requestFocus();
 					mTotalItemCount = mProgramAdapter.getCount();
 					mCurrentSelection = 0;
 					resetPagePrompt(mCurrentSelection, mTotalItemCount);

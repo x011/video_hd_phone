@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.os.Handler;
 import android.util.Log;
 
@@ -40,8 +41,11 @@ public class ProgramDetailService {
 		this.Sid=Sid;
 		if(!dbCacheDetail()){
 			FinalHttp finalHttp = new FinalHttp();
-			logger.i("VodProgramDetail request URL="+url);
-			finalHttp.get(url,mLoadVodProgramDetail);
+			AjaxParams params = new AjaxParams();
+			params.put("appid", Configs.URL.APP_ID);
+			params.put("mac", Configs.URL.MAC);
+			params.put("sid", Sid);
+			finalHttp.post(url,params,mLoadVodProgramDetail);
 		}
 	
 		

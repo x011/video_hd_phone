@@ -2,6 +2,7 @@ package com.moon.android.moonplayer.service;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.os.Handler;
 
 import com.google.gson.Gson;
@@ -29,12 +30,13 @@ public class AdService {
 	 * @param sid 剧集分类ID
 	 */
 	public void initAd(final String cid) {
-		
-		String url = Configs.URL.getAdApi()+cid;
 
 		FinalHttp finalHttp = new FinalHttp();
-		logger.i("ad request url=" + url);
-		finalHttp.get(url, new AjaxCallBack<String>() {
+		AjaxParams params = new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		params.put("cid", cid);
+		finalHttp.post(Configs.URL.getAdApi(), params, new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 //				mList = new Gson().fromJson(t, new TypeToken<List<Drama>>() {}.getType());

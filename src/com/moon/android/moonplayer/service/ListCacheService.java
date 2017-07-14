@@ -7,6 +7,7 @@ import java.util.Map;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.Log;
@@ -18,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moon.android.activity.GetListActivity;
@@ -195,9 +196,10 @@ public class ListCacheService {
 		showView(true);
 		FinalHttp finalHttp = new FinalHttp();
 		Log.d(tag, "第" + TryNumEd + "次获取总列表地址：" + Configs.URL.getListCache());
-		// System.out.println("TryNumEd = " + TryNumEd + " " +
-		// Configs.URL.getListCache());
-		finalHttp.post(Configs.URL.getListCache(), new AjaxCallBack<String>() {
+		AjaxParams params = new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		finalHttp.post(Configs.URL.getListCache(),params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onSuccess(String t) {
@@ -259,7 +261,9 @@ public class ListCacheService {
 									// TODO Auto-generated method stub
 									for (int j = 0; j < listModel.submenu.size(); j++) {
 										SeconMenu sMenu = listModel.submenu.get(j);
-										System.out.println(sMenu.content.size()+"===================");
+										if(Configs.debug){
+											System.out.println(sMenu.content.size()+"===================");
+										}
 										for (int k = 0; k < sMenu.content.size(); k++) {
 //											System.out.println(k);
 											VodProgram vProgram = sMenu.content.get(k);

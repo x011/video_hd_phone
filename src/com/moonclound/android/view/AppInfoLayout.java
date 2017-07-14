@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moon.android.model.VodProgramDetail;
 import com.moonclound.android.iptv.util.MACUtils;
 import com.moonclound.android.iptv.util.Tools;

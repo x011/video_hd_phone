@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 import com.moonclound.android.iptv.util.VodCategory;
 
 public class CatgoryAdapter extends BaseAdapter{

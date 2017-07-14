@@ -84,6 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="585dp"
                     android:layout_weight="6"
+                    android:focusable="true"
                     android:horizontalSpacing="40dp"
                     android:listSelector="@drawable/bg_program"
                     android:verticalSpacing="15dp" />

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.ev.android.evodshd.R;
+import com.ev.android.evodshd.plus.R;
 
 public class HorizontalMessageView extends LinearLayout {
 	private HorizontalScrollTextView hTextView = (HorizontalScrollTextView) LayoutInflater

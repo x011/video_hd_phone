@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.os.Handler;
 
 import com.google.gson.Gson;
@@ -30,11 +31,12 @@ public class DramaService {
 	 */
 	public void initList(final String sid) {
 		
-		String url = Configs.URL.getDramaApi()+sid;
-
 		FinalHttp finalHttp = new FinalHttp();
-		logger.i("secondary menu url=" + url);
-		finalHttp.get(url, new AjaxCallBack<String>() {
+		AjaxParams params = new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		params.put("sid", sid);
+		finalHttp.post(Configs.URL.getDramaApi(), params, new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				mList = new Gson().fromJson(t, new TypeToken<List<Drama>>() {}.getType());
