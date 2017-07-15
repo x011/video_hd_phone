@@ -60,6 +60,7 @@
                     android:ellipsize="marquee"
                     android:singleLine="true"
                     android:text="@string/reload"
+                    android:textColor="@color/color_p_exit"
                     android:textSize="35dp" />
 
                 <Button
@@ -69,6 +70,7 @@
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/bg_p_exit"
                     android:text="@string/cancel"
+                    android:textColor="@color/color_p_exit"
                     android:textSize="35dp" />
             </LinearLayout>
         </LinearLayout>
