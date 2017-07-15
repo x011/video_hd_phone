@@ -14,7 +14,7 @@ public class Configs {
 	/**Need change data start**/
 	public static final boolean debug = false;
 	public static final String APPID = "70002";//22203
-	public static final String PKG_NAME = "com.ev.android.evodshd";
+	public static final String PKG_NAME = "com.ev.android.evodshd.plus";
 	public static boolean isLastNeedPassword = true;  //最后一项输入密码
 	/**Need change data end **/
 	 

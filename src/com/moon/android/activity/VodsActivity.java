@@ -518,7 +518,8 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			isPlayHistory = false;
 			mPlayPos = mCurrentPage * VOD_PER_PAGE + position;
 
-			mAdService.initAd(mCid);
+//			mAdService.initAd(mCid);//频道点击时获取广告内容
+			mAdHandler.sendEmptyMessage(Configs.Success.GET_AD);
 		}
 	};
 
@@ -566,7 +567,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		}
 
 		ComponentName componetName = new ComponentName(this, MyPlayerActivity.class);
-		System.out.println("run .. APlayer.. ");
+		System.out.println(" .. APlayer.. ");
 		try {
 			Intent intent = new Intent();
 			if (mAd != null) {
