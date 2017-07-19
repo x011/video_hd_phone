@@ -12,6 +12,25 @@ public class AuthInfo {
 	/** 左侧一级菜单列表的API */
 	private String url;
 
+	private String msg;
+	private String token;
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -46,7 +65,6 @@ public class AuthInfo {
 
 	@Override
 	public String toString() {
-		return "AuthInfo [code=" + code + ", link=" + link + ", key=" + key
-				+ ", url=" + url + "]";
+		return "AuthInfo [code=" + code + ", link=" + link + ", key=" + key + ", url=" + url + "]";
 	}
 }

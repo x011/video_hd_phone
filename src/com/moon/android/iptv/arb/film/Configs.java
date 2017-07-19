@@ -61,7 +61,7 @@ public class Configs {
 		
 		//vodchina1.ibcde.net(xiangYunZhiBo)
 		//vod1.ibcde.net(yueGangShiJie)
-		public static final String HOST1="http://vodplus.etvhk.com/Api/";//正式库1
+		public static String HOST1="http://vodplus.etvhk.com/Api/";//正式库1
 		public static final String HOST2="http://vodplus.etvb.hk/Api/";//正式库2
 		public static final String HOST3="http://vodplus.iesaytv.com/Api/";//正式库3  http://hdvod.etvhk.com/Api/
 		public static String HOST=HOST1;//正式库
@@ -84,7 +84,11 @@ public class Configs {
 		} 
 		/**获取授权地址*/
 		public static String getAuthApi(){
-			return HOST+"App/auth?";
+			return HOST+"AppNew/auth?";
+		}
+		/**添加白名单地址*/
+		public static String addWhiteListApi(){
+			return "AppNew/getStream?";
 		}
 		/**获取二级菜单基地址，后面还要加CID*/
 		public static String getSeconMenuApi(){

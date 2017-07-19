@@ -13,9 +13,11 @@ import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MyApplication;
 import com.moon.android.iptv.arb.film.ProgramCache;
 import com.moon.android.model.AuthInfo;
+import com.moonclound.android.iptv.util.AjaxUtil;
 import com.moonclound.android.iptv.util.DbUtil;
 import com.moonclound.android.iptv.util.HostUtil;
 import com.moonclound.android.iptv.util.Logger;
+import com.moonclound.android.iptv.util.MD5Utils;
 
 public class AuthService {
 
@@ -104,16 +106,23 @@ public class AuthService {
 //		System.out.println("appid = "+Configs.APPID);
 //		System.out.println("Model = "+android.os.Build.MODEL);
 		
+//		System.out.println("authUrl = "+Configs.URL.getAuthApi()+"appid="+Configs.URL.APP_ID+"&mac="+Configs.URL.MAC
+//				+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+
+//				"&cpukey="+DeviceFun.GetFileCpu()+"&Model="+android.os.Build.MODEL);
+		
 		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);
 				try {
+//					System.out.println("t.tostring="+t.toString());
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
 					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
+						//鉴权成功，发送白名单
+						doAddWhiteList(mAuthInfo.getToken());
 						if (flag) {
 
 							mAuthHandler
@@ -155,6 +164,41 @@ public class AuthService {
 				}
 			}
 		});
+	}
+
+	/**
+	 * 添加白名单
+	 */
+	private void doAddWhiteList(String token) {
+		// TODO Auto-generated method stub
+		if(token == null)
+			return;
+		AjaxParams params = new AjaxParams();
+		params.put("appid", Configs.URL.APP_ID);
+		params.put("mac", Configs.URL.MAC);
+		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+		params.put("cpukey", DeviceFun.GetFileCpu());
+		params.put("Model", android.os.Build.MODEL);
+		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
+		new AjaxUtil().post(Configs.URL.addWhiteListApi(), params, new ajaxPostCallback2());
+	}
+	
+	class ajaxPostCallback2 implements AjaxUtil.PostCallback{
+
+		@Override
+		public void Success(String t) {
+			// TODO Auto-generated method stub
+//			System.out.println("success t.tostring="+t.toString());
+			logger.i("添加白名单成功result=" + t.toString());
+		}
+
+		@Override
+		public void Failure(String host, int errorNo) {
+			// TODO Auto-generated method stub
+//			System.out.println("host="+host+"     Failure errorNo="+errorNo);
+			logger.i("添加白名单失败"+"host="+host+" errorNo="+errorNo);
+		}
+		
 	}
 
 	/**
