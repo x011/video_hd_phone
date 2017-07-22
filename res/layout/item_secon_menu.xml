@@ -8,6 +8,7 @@
     android:background="@color/color_sure">
     
     <TextView 
+   
         android:id="@+id/secon_menu_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

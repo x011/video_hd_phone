@@ -44,7 +44,7 @@ public class SeconMenuAdapter extends BaseAdapter<SeconMenu> {
 		SeconMenu seconMenu = mList.get(position);
 		holder.menuName.setText(seconMenu.getClassify());
 		if(mSelected==position){
-			view.setBackgroundResource(R.drawable.secon_menu_focus);
+			view.setBackgroundResource(R.drawable.secondmuneclick);
 			holder.menuName.setTextColor(Color.parseColor("#F1F1F1"));
 			TextPaint tp = holder.menuName.getPaint(); //这两行字体加粗
 			tp.setFakeBoldText(true); 

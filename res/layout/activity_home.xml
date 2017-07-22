@@ -17,6 +17,7 @@
         android:paddingTop="20dp" >
 
         <LinearLayout
+            android:paddingLeft="20dp"
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:gravity="center"

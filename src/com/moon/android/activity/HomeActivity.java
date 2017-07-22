@@ -29,12 +29,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
+ 
 import com.ev.android.evodshd.plus.R;
 import com.moon.android.broadcast.MsgBroadcastReceiver;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MsgService;
 import com.moon.android.iptv.arb.film.MyApplication;
+
 import com.moon.android.model.AuthInfo;
 import com.moon.android.model.Navigation;
 import com.moon.android.model.SeconMenu;
@@ -57,29 +58,29 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	private Logger logger = Logger.getInstance();
 
-	// 以下是获取授权信息相关
+	// 浠ヤ笅鏄幏鍙栨巿鏉冧俊鎭浉鍏�
 	private AuthInfo mAuthInfo = MyApplication.authInfo;
 
-	// 以下是左侧菜单相关
+	// 浠ヤ笅鏄乏渚ц彍鍗曠浉鍏�
 	private Handler mLeftMenuHandler;
 	private NavigationService mNavigationService;
 	private ListView mLeftMenuListView;
 	private List<Navigation> mLeftMenuList = new ArrayList<Navigation>();
 	private LeftMenuAdapter mLeftMenuAdapter;
-	/** 当前左侧菜单列表的cid选项,根据这个值确定加载哪个二级菜单 */
+	/** 褰撳墠宸︿晶鑿滃崟鍒楄〃鐨刢id閫夐」,鏍规嵁杩欎釜鍊肩‘瀹氬姞杞藉摢涓簩绾ц彍鍗� */
 	private String mCurrentCid;
 
-	// 以下是二级菜单相关变量
+	// 浠ヤ笅鏄簩绾ц彍鍗曠浉鍏冲彉閲�
 	private static final int SECON_MENU_COLUMN = 7;
 	private Handler mSeconMenuAHandler;
 	private GridView mGridSeconMenu;
 	private SeconMenuAdapter mSeconMenuAdapter;
 	private SeconMenuService mSeconMenuService;
 	private List<SeconMenu> mSeconMenuList = new ArrayList<SeconMenu>();
-	/** 当前二级菜单,每次点一级菜单后这个都默认为第一个选中 */
+	/** 褰撳墠浜岀骇鑿滃崟,姣忔鐐逛竴绾ц彍鍗曞悗杩欎釜閮介粯璁や负绗竴涓�変腑 */
 	private SeconMenu mCurrentSeconMenu;
 
-	// 以下是节目列表相关
+	// 浠ヤ笅鏄妭鐩垪琛ㄧ浉鍏�
 	private GridView mGridVodShow;
 	List<VodProgram> mVodProgramList = new ArrayList<VodProgram>();
 	private ProgramService mProgramService;
@@ -89,12 +90,12 @@ public class HomeActivity extends Activity implements OnClickListener {
 	private int mTotalItemCount = 0;
 	private int mCurrentSelection = 0;
 
-	/** 页数提示,格式为 2/92,表示总共92条记录，当前为第二条 */
+	/** 椤垫暟鎻愮ず,鏍煎紡涓� 2/92,琛ㄧず鎬诲叡92鏉¤褰曪紝褰撳墠涓虹浜屾潯 */
 	private TextView mPagePrompt;
 	private ImageView mLoadingAnim;
 
-	// 限制级影片相关
-	/** 是否已经输入过密码 */
+	// 闄愬埗绾у奖鐗囩浉鍏�
+	/** 鏄惁宸茬粡杈撳叆杩囧瘑鐮� */
 	private boolean isPassEver = false;
 
 	private MsgBroadcastReceiver mMsgReceiver;
@@ -119,10 +120,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 		initService();
 		initView();
 		initAdapter();
-		mNavigationService.initList(mAuthInfo);// 只有执行这句才会一级一级获取各种列表
+		mNavigationService.initList(mAuthInfo);// 鍙湁鎵ц杩欏彞鎵嶄細涓�绾т竴绾ц幏鍙栧悇绉嶅垪琛�
 
 		registerMyReceiver();
 		startUpdatAndGetMsgService();
+		
 		// startActivity(new Intent(this,HistoryActivity.class));
 	}
 
@@ -154,7 +156,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化获取各种列表的服务类
+	 * 鍒濆鍖栬幏鍙栧悇绉嶅垪琛ㄧ殑鏈嶅姟绫�
 	 */
 	private void initService() {
 		mNavigationService = new NavigationService(mLeftMenuHandler);
@@ -240,6 +242,18 @@ public class HomeActivity extends Activity implements OnClickListener {
 				startActivity(new Intent(HomeActivity.this, HotActivity.class));
 			}
 		});
+		
+		
+		/*focus */
+		mLeftMenuListView.setNextFocusRightId(R.id.main_subcat_grid);
+		mGridSeconMenu.setNextFocusLeftId(R.id.main_cat_list);
+		mGridSeconMenu.setNextFocusDownId(R.id.main_subcat_grid);
+		
+		mGridVodShow.setNextFocusUpId(R.id.secon_menu_grid);
+		mGridVodShow.setNextFocusLeftId(R.id.main_cat_list);
+		
+		
+	
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -256,7 +270,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 					mLeftMenuList.clear();
 					mLeftMenuList.addAll(list);
 					mLeftMenuAdapter.notifyDataSetChanged(0);
-
+					mLeftMenuListView.requestFocus();	
 					if (mLeftMenuList.size() > 0) {
 						mCurrentCid = mLeftMenuList.get(0).getCid();
 						mSeconMenuService.initList(mCurrentCid);
@@ -279,7 +293,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 					setViewVisible(mPagePrompt, true);
 
 					List<SeconMenu> list = mSeconMenuService.getList();
-					// 如果没有二级菜单，就给一个默认的二级菜单SeconMenu("全部",null,null);
+					// 濡傛灉娌℃湁浜岀骇鑿滃崟锛屽氨缁欎竴涓粯璁ょ殑浜岀骇鑿滃崟SeconMenu("鍏ㄩ儴",null,null);
 					if (list.size() == 0) {
 						list.add(new SeconMenu());
 					}
@@ -295,7 +309,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 						mPagePrompt.setVisibility(View.INVISIBLE);
 
 						mCurrentSeconMenu = mSeconMenuList.get(0);
-						// 初始化二级菜单列表后，加载节目列表
+						// 鍒濆鍖栦簩绾ц彍鍗曞垪琛ㄥ悗锛屽姞杞借妭鐩垪琛�
 						mProgramService.initList(mCurrentCid, mCurrentSeconMenu);
 					}
 
@@ -327,11 +341,14 @@ public class HomeActivity extends Activity implements OnClickListener {
 					mVodProgramList.clear();
 					mVodProgramList.addAll(list);
 					mProgramAdapter.notifyDataSetChanged();
-					mGridVodShow.setSelection(0);
-					mGridVodShow.requestFocus();
+					
+				
+//					mGridVodShow.setSelection(0);
+//					mGridVodShow.requestFocus();
 					mTotalItemCount = mProgramAdapter.getCount();
 					mCurrentSelection = 0;
 					resetPagePrompt(mCurrentSelection, mTotalItemCount);
+				
 					break;
 				case Configs.Failure.GET_PROGRAM_LIST:
 					setViewVisible(mLoadingAnim, false);
@@ -369,16 +386,16 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			// if is Cloud Vod App ,last left menu will be limited
 			if (position == mLeftMenuList.size() - 1 && !isPassEver && Configs.isLastNeedPassword) {
-				logger.i("=====进入限制区=====");
+				logger.i("=====杩涘叆闄愬埗鍖�=====");
 				final PasswordDAO passwordDao = new PasswordDAO(getApplicationContext());
-				// 最后一个为限制级片区，需加密
-				// check 是否加密
+				// 鏈�鍚庝竴涓负闄愬埗绾х墖鍖猴紝闇�鍔犲瘑
+				// check 鏄惁鍔犲瘑
 				if (passwordDao.isTableNull()) {
-					logger.i("=====检测到限制区未设置密码=====");
+					logger.i("=====妫�娴嬪埌闄愬埗鍖烘湭璁剧疆瀵嗙爜=====");
 					setPassword(passwordDao, view, position);
 				} else {
-					logger.i("=====检测到限制区已经设置密码=====");
-					// 输入密码
+					logger.i("=====妫�娴嬪埌闄愬埗鍖哄凡缁忚缃瘑鐮�=====");
+					// 杈撳叆瀵嗙爜
 					final PasswordDialog pd = PasswordDialog.createDialog(HomeActivity.this);
 					pd.setTitle(R.string.input_password);
 					pd.hidePassword02().setPositiveListener(new OnClickListener() {
@@ -387,7 +404,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 							boolean isPass = passwordDao.isExist(pd.getPassword01());
 							if (isPass) {
 								isPassEver = true;
-								// 验证通过
+								// 楠岃瘉閫氳繃
 								changeLeftMenu(position);
 								// changeNavColor(view);
 								// changeCat(position);
@@ -412,7 +429,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 					}).show();
 				}
 			} else {
-				logger.i("=====其它区=====");
+				logger.i("=====鍏跺畠鍖�=====");
 				setViewVisible(mGridSeconMenu, false);
 				mGridVodShow.setVisibility(View.INVISIBLE);
 				mPagePrompt.setVisibility(View.INVISIBLE);
@@ -424,7 +441,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	private void setPassword(final PasswordDAO passwordDao, final View view, final int position) {
 		passwordDao.deleteAll();
-		// 如果没有设置密码
+		// 濡傛灉娌℃湁璁剧疆瀵嗙爜
 		final PasswordDialog pd = PasswordDialog.createDialog(HomeActivity.this);
 		pd.setTitle(R.string.password_setting);
 		pd.hideModify().setPositiveListener(new OnClickListener() {
@@ -484,7 +501,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	}
 
-	// 翻页滚动效果，但效果没达到预期，暂时停做
+	// 缈婚〉婊氬姩鏁堟灉锛屼絾鏁堟灉娌¤揪鍒伴鏈燂紝鏆傛椂鍋滃仛
 	private class OnGridVodItemSelectedListener implements OnItemSelectedListener {
 
 		@Override
@@ -492,13 +509,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			/*
 			 * int smoothDistance = view.getMeasuredHeight() - 30;//
-			 * V代表整个GridView,垂直滚动举例 int duration = 1000;// 移动延迟
+			 * V浠ｈ〃鏁翠釜GridView,鍨傜洿婊氬姩涓句緥 int duration = 1000;// 绉诲姩寤惰繜
 			 * 
 			 * int nextSelection = mGridVodShow.getSelectedItemPosition(); int
 			 * tempPosition = mTotalItemCount - mTotalItemCount %
-			 * VOD_GRID_COLUMN - VOD_GRID_COLUMN;// 倒数第三行最后一个的位置
+			 * VOD_GRID_COLUMN - VOD_GRID_COLUMN;// 鍊掓暟绗笁琛屾渶鍚庝竴涓殑浣嶇疆
 			 * 
-			 * // 当滚动到第一页或者最后一页的时候就不滚动了 if (mCurrentSelection + VOD_GRID_COLUMN
+			 * // 褰撴粴鍔ㄥ埌绗竴椤垫垨鑰呮渶鍚庝竴椤电殑鏃跺�欏氨涓嶆粴鍔ㄤ簡 if (mCurrentSelection + VOD_GRID_COLUMN
 			 * == nextSelection && mCurrentSelection < tempPosition) {
 			 * mGridVodShow.smoothScrollBy(smoothDistance, duration); } else if
 			 * (mCurrentSelection - VOD_GRID_COLUMN == nextSelection &&
@@ -534,10 +551,10 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 修改View的显示状态
+	 * 淇敼View鐨勬樉绀虹姸鎬�
 	 * 
 	 * @param visible
-	 *            true--显示 false--不显示
+	 *            true--鏄剧ず false--涓嶆樉绀�
 	 */
 	public void setViewVisible(View view, boolean visible) {
 		if (visible == true) {
