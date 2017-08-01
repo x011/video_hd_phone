@@ -35,9 +35,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal" 
+                >
 
                 <LinearLayout 
+               
                     android:layout_width="0dp"
                     android:layout_height="75dp"
                     android:layout_weight="3"
@@ -45,6 +47,7 @@
                     <TextView
 	                    android:id="@+id/vod_name"
 	                    style="@style/text_28_f2f2f2"
+	                    android:singleLine="true"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:textStyle="bold" />
@@ -78,13 +81,14 @@
 
             <LinearLayout
                 android:id="@+id/container_film_introduce"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+               
                 android:orientation="vertical" >
 
                 <com.moonclound.android.view.ProgramDetailLayout
                     android:id="@+id/program_detail_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -165,8 +169,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <GridView
+                  
 	                android:id="@+id/vod_grid"
-	                android:layout_width="0dp"
+	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="5"
 	                android:layout_marginTop="10dp"

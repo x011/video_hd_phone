@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.ev.android.evodshd.plus.R;
 import com.ev.player.MyPlayerActivity;
 import com.ev.player.history.HistoryDAO;
@@ -69,9 +70,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class VodsActivity extends Activity implements OnKeyListener {
 	public DbUtil db;
 	private Logger logger = Logger.getInstance();
-	public static final int VOD_GRID_COLUMN = 6;
-	public static final int VOD_GRID_ROW = 5;
-	public static final int VOD_PER_PAGE = VOD_GRID_COLUMN * VOD_GRID_ROW;
+	public static  int VOD_GRID_COLUMN = 6;
+	public static int VOD_GRID_ROW =5;
+	public static  int VOD_PER_PAGE = VOD_GRID_COLUMN * VOD_GRID_ROW;
 	private VodProgram mVodProgram;
 	private TextView mTextVodName;
 	private GridView mGridVod;
@@ -137,6 +138,8 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			mIB_PageDown = (ImageButton) findViewById(R.id.page_down);
 			mIB_PageUp.setOnClickListener(mPageClickListener);
 			mIB_PageDown.setOnClickListener(mPageClickListener);
+			VOD_GRID_ROW=999;
+			VOD_PER_PAGE = VOD_GRID_COLUMN * VOD_GRID_ROW;
 		}else{
 			tvOrPad = "0";
 			setContentView(R.layout.activity_vods);
@@ -148,8 +151,17 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		initAd();
 		getVodData();
 		getVodDetailData();
+		if(tvOrPad.equals("1") || tvOrPad=="1"){
+			dopban();
+		}
 		// isColl();
 		// new Thread(mHistoryLoadR).start();
+	}
+
+	private void dopban() {
+		// TODO Auto-generated method stub
+		mContainerPageNum.setVisibility(View.GONE);
+	
 	}
 
 	private OnClickListener mPageClickListener = new OnClickListener() {

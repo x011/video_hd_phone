@@ -76,19 +76,24 @@ public class IndexActivity extends Activity {
 		        }
 		        return false;
 	 }
-	private OnClickListener mErrBtnClickListener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (v == mBtnReload) {
-			//	deleteFile(Configs.CachePath.AUTH);
-				showLoadContainer(true);
-				mAuthService.findFromNet(true);
-				//checkNetwork();
-			} else if (v == mBtnCancel) {
-				finish();
+	 private OnClickListener mErrBtnClickListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (v == mBtnReload) {
+				//	deleteFile(Configs.CachePath.AUTH);
+					if (NetworkUtil.isConnectingToInternet(IndexActivity.this)){
+						showLoadContainer(true);
+						mAuthService.findFromNet(true);
+					}else{
+						showLoadContainer(false);
+						mHandler.sendEmptyMessage(Configs.NETWORK_NOT_CONNECT);
+					}
+					//checkNetwork();
+				} else if (v == mBtnCancel) {
+					finish();
+				}
 			}
-		}
-	};
+		};
 
 	private void checkNetwork() {
 		logger.i("network connect");

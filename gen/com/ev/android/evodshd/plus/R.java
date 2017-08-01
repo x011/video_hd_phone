@@ -22,22 +22,24 @@ public final class R {
     public static final class color {
         public static final int background=0x7f060008;
         public static final int black=0x7f060004;
-        public static final int black_cc=0x7f060010;
-        public static final int black_half=0x7f060012;
+        public static final int black_cc=0x7f060012;
+        public static final int black_half=0x7f060014;
         public static final int black_overlay=0x7f060005;
         public static final int blue=0x7f06000b;
-        public static final int cat_select=0x7f060011;
+        public static final int cat_select=0x7f060013;
         public static final int colorAccent=0x7f060002;
         public static final int colorPrimary=0x7f060000;
         public static final int colorPrimaryDark=0x7f060001;
-        public static final int color_btn_play=0x7f060015;
-        public static final int color_navigation=0x7f060016;
-        public static final int color_navigation_select=0x7f060017;
-        public static final int color_p_exit=0x7f060018;
-        public static final int color_red=0x7f060013;
-        public static final int color_sure=0x7f060014;
-        public static final int color_video_select=0x7f060019;
-        public static final int color_vod=0x7f06001a;
+        public static final int color_btn_play=0x7f060017;
+        public static final int color_navigation=0x7f060018;
+        public static final int color_navigation_select=0x7f060019;
+        public static final int color_p_exit=0x7f06001a;
+        public static final int color_red=0x7f060015;
+        public static final int color_sure=0x7f060016;
+        public static final int color_video_select=0x7f06001b;
+        public static final int color_vod=0x7f06001c;
+        public static final int left_list_item_bgcolor_nor=0x7f060010;
+        public static final int left_list_item_bgcolor_selected=0x7f060011;
         public static final int red=0x7f060009;
         public static final int test=0x7f06000a;
         public static final int text_black=0x7f060006;
@@ -251,7 +253,7 @@ public final class R {
         public static final int aplayer_surfaceView=0x7f0b0072;
         public static final int appinfo_text_mac=0x7f0b005d;
         public static final int appinfo_text_ver=0x7f0b005c;
-        public static final int buffer_prompt=0x7f0b0088;
+        public static final int buffer_prompt=0x7f0b008a;
         public static final int buffer_txt=0x7f0b0087;
         public static final int cancel=0x7f0b0063;
         public static final int catgory_item_text=0x7f0b005e;
@@ -397,8 +399,8 @@ public final class R {
         public static final int vod_buffer=0x7f0b0086;
         public static final int vod_current_page=0x7f0b0054;
         public static final int vod_grid=0x7f0b004c;
-        public static final int vod_load_anim=0x7f0b0089;
-        public static final int vod_load_img=0x7f0b008a;
+        public static final int vod_load_anim=0x7f0b0088;
+        public static final int vod_load_img=0x7f0b0089;
         public static final int vod_load_progress=0x7f0b004f;
         public static final int vod_load_prompt=0x7f0b004e;
         public static final int vod_name=0x7f0b0043;
@@ -450,8 +452,8 @@ public final class R {
  粤港视界 
  粤港视界 
          */
-        public static final int action_settings=0x7f080008;
-        public static final int anthology=0x7f080016;
+        public static final int action_settings=0x7f08000a;
+        public static final int anthology=0x7f080018;
         /**  <string name="app_name">Cloud VOD</string> 
  祥云直播 
  <string name="app_name">Cloud VOD</string> 
@@ -462,84 +464,86 @@ public final class R {
  <string name="app_name">祥雲視頻</string> 
          */
         public static final int app_name=0x7f080000;
-        public static final int auth_fail=0x7f080010;
-        public static final int back_txt=0x7f080048;
+        public static final int auth_fail=0x7f080012;
+        public static final int back_txt=0x7f08004a;
         public static final int back_txt1=0x7f080006;
-        public static final int cache_new=0x7f080014;
-        public static final int cancel=0x7f08000a;
-        public static final int clear_txt=0x7f08004a;
-        public static final int content_is_null=0x7f080011;
-        public static final int data_err=0x7f080033;
-        public static final int data_parsing_err=0x7f080034;
-        public static final int data_update=0x7f080032;
-        public static final int determine=0x7f080009;
-        public static final int di=0x7f080025;
-        public static final int director=0x7f08001f;
-        public static final int drama_detail_info=0x7f08003a;
-        public static final int drama_leading_actor_prompt=0x7f080039;
-        public static final int drama_regisseur_prompt=0x7f080038;
-        public static final int drama_year_prompt=0x7f080037;
+        public static final int cache_new=0x7f080016;
+        public static final int cancel=0x7f08000c;
+        public static final int clear_txt=0x7f08004c;
+        public static final int content_is_null=0x7f080013;
+        public static final int data_err=0x7f080035;
+        public static final int data_parsing_err=0x7f080036;
+        public static final int data_update=0x7f080034;
+        public static final int determine=0x7f08000b;
+        public static final int di=0x7f080027;
+        public static final int director=0x7f080021;
+        public static final int drama_detail_info=0x7f08003c;
+        public static final int drama_leading_actor_prompt=0x7f08003b;
+        public static final int drama_regisseur_prompt=0x7f08003a;
+        public static final int drama_year_prompt=0x7f080039;
         public static final int duration=0x7f080002;
-        public static final int example_txt=0x7f08004b;
-        public static final int exit=0x7f08000b;
-        public static final int exit_vod=0x7f080015;
+        public static final int example_txt=0x7f08004d;
+        public static final int exit=0x7f08000d;
+        public static final int exit_vod=0x7f080017;
         public static final int full_screen=0x7f080001;
-        public static final int get_cache_left_menu=0x7f080035;
-        public static final int get_program_detail_failure=0x7f080036;
-        public static final int history_info=0x7f080041;
-        public static final int history_prompt=0x7f080024;
-        public static final int home_collect=0x7f08003e;
-        public static final int home_history=0x7f08003b;
-        public static final int home_home=0x7f080042;
-        public static final int home_hot=0x7f08003d;
-        public static final int home_search=0x7f08003c;
-        public static final int hotsearch_txt=0x7f08004e;
-        public static final int input_password=0x7f080028;
-        public static final int input_password_agin=0x7f080029;
-        public static final int introduction=0x7f080021;
-        public static final int ji=0x7f080026;
+        public static final int get_cache_left_menu=0x7f080037;
+        public static final int get_program_detail_failure=0x7f080038;
+        public static final int history_info=0x7f080043;
+        public static final int history_prompt=0x7f080026;
+        public static final int home_collect=0x7f080040;
+        public static final int home_history=0x7f08003d;
+        public static final int home_home=0x7f080044;
+        public static final int home_hot=0x7f08003f;
+        public static final int home_search=0x7f08003e;
+        public static final int hotsearch_txt=0x7f080050;
+        public static final int input_password=0x7f08002a;
+        public static final int input_password_agin=0x7f08002b;
+        public static final int introduction=0x7f080023;
+        public static final int isfirst=0x7f080008;
+        public static final int islast=0x7f080009;
+        public static final int ji=0x7f080028;
         public static final int kbs=0x7f080004;
-        public static final int last_play=0x7f080027;
-        public static final int load_fail=0x7f080013;
-        public static final int load_list=0x7f080043;
-        public static final int load_list_error=0x7f080044;
-        public static final int load_list_info=0x7f080046;
-        public static final int load_list_oldlist=0x7f080045;
+        public static final int last_play=0x7f080029;
+        public static final int load_fail=0x7f080015;
+        public static final int load_list=0x7f080045;
+        public static final int load_list_error=0x7f080046;
+        public static final int load_list_info=0x7f080048;
+        public static final int load_list_oldlist=0x7f080047;
         public static final int load_prompt=0x7f080005;
-        public static final int loading=0x7f080023;
-        public static final int modify=0x7f08002a;
-        public static final int network_exception=0x7f08000e;
-        public static final int network_not_connect=0x7f08000f;
+        public static final int loading=0x7f080025;
+        public static final int modify=0x7f08002c;
+        public static final int network_exception=0x7f080010;
+        public static final int network_not_connect=0x7f080011;
         /**  vod activity 
  vod activity 
  vod activity 
  vod activity 
  vod activity 
          */
-        public static final int no_vod=0x7f080012;
-        public static final int not_look_vod=0x7f08001a;
-        public static final int page=0x7f080017;
-        public static final int password_change=0x7f08002e;
-        public static final int password_not_match=0x7f08002c;
-        public static final int password_not_null=0x7f08002b;
-        public static final int password_prompt=0x7f080031;
-        public static final int password_setting=0x7f08002f;
-        public static final int password_wrong=0x7f08002d;
-        public static final int play=0x7f080022;
-        public static final int player_null=0x7f080019;
+        public static final int no_vod=0x7f080014;
+        public static final int not_look_vod=0x7f08001c;
+        public static final int page=0x7f080019;
+        public static final int password_change=0x7f080030;
+        public static final int password_not_match=0x7f08002e;
+        public static final int password_not_null=0x7f08002d;
+        public static final int password_prompt=0x7f080033;
+        public static final int password_setting=0x7f080031;
+        public static final int password_wrong=0x7f08002f;
+        public static final int play=0x7f080024;
+        public static final int player_null=0x7f08001b;
         /**  welcome activity 
  welcome activity 
  welcome activity 
  welcome activity 
  welcome activity  
          */
-        public static final int prompt=0x7f08000d;
-        public static final int release_time=0x7f080020;
-        public static final int reload=0x7f080030;
-        public static final int resultsearch_txt=0x7f08004f;
-        public static final int search_txt=0x7f080047;
-        public static final int softupdate=0x7f08001b;
-        public static final int space_txt=0x7f080049;
+        public static final int prompt=0x7f08000f;
+        public static final int release_time=0x7f080022;
+        public static final int reload=0x7f080032;
+        public static final int resultsearch_txt=0x7f080051;
+        public static final int search_txt=0x7f080049;
+        public static final int softupdate=0x7f08001d;
+        public static final int space_txt=0x7f08004b;
         /**  vod player 
  vod player 
  vod player 
@@ -547,18 +551,18 @@ public final class R {
  vod player
          */
         public static final int sprit=0x7f080003;
-        public static final int start_download=0x7f08001d;
-        public static final int sure=0x7f08000c;
+        public static final int start_download=0x7f08001f;
+        public static final int sure=0x7f08000e;
         public static final int switch_tv=0x7f080007;
-        public static final int to_star=0x7f08001e;
-        public static final int try_agin=0x7f080018;
-        public static final int txt1=0x7f08004c;
-        public static final int txt2=0x7f08004d;
-        public static final int txt3=0x7f080050;
-        public static final int txt4=0x7f080051;
-        public static final int update=0x7f08001c;
-        public static final int vod_add_coll=0x7f08003f;
-        public static final int vod_cancel_coll=0x7f080040;
+        public static final int to_star=0x7f080020;
+        public static final int try_agin=0x7f08001a;
+        public static final int txt1=0x7f08004e;
+        public static final int txt2=0x7f08004f;
+        public static final int txt3=0x7f080052;
+        public static final int txt4=0x7f080053;
+        public static final int update=0x7f08001e;
+        public static final int vod_add_coll=0x7f080041;
+        public static final int vod_cancel_coll=0x7f080042;
     }
     public static final class style {
         /** 
