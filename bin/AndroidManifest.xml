@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ev.android.evodshd.plus"
-    android:versionCode="20170801"
-    android:versionName="20170801" >
+    android:versionCode="20170803"
+    android:versionName="20170803" >
  
     <!-- Alert!!!the brief introduction below can't be deleted,and each time release new version app should update it -->
     <!-- com.mooncloud.android.looktvb粤港世界 AppID=2004,current versionName=20150430,versionCode=20150430,logo=logo_ygsj.png -->
