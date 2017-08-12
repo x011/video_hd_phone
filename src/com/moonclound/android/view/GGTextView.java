@@ -120,11 +120,15 @@ public class GGTextView extends TextView implements OnClickListener {
 
 		private SavedState(Parcel in) {
 			super(in);
-			boolean[] b = null;
-			in.readBooleanArray(b);
-			if (b != null && b.length > 0)
-				isStarting = b[0];
-			step = in.readFloat();
+			try {
+				boolean[] b = null;
+				in.readBooleanArray(b);
+				if (b != null && b.length > 0)
+					isStarting = b[0];
+				step = in.readFloat();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 
