@@ -23,7 +23,7 @@ public class MyApplication extends Application {
 	public static String appMsg = "";
 	public static MyApplication iptvAppl1ication;
 	public static UpdateData updateData;
-	
+	public static String white="1";//是否添加白名单成功全局变量 0为成功1为失败
 	public static AuthInfo authInfo;
 
 	/**将已经呈现过的节目列表保存到Application范围*/

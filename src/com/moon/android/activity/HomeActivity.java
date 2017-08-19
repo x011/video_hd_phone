@@ -2,6 +2,8 @@ package com.moon.android.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,6 +42,7 @@ import com.moon.android.model.AuthInfo;
 import com.moon.android.model.Navigation;
 import com.moon.android.model.SeconMenu;
 import com.moon.android.model.VodProgram;
+import com.moon.android.moonplayer.service.AuthService;
 import com.moon.android.moonplayer.service.NavigationService;
 import com.moon.android.moonplayer.service.ProgramService;
 import com.moon.android.moonplayer.service.SeconMenuService;
@@ -119,6 +122,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		initHandler();
 		initService();
 		initView();
+		timeStart();
 		initAdapter();
 		mNavigationService.initList(mAuthInfo);// 鍙湁鎵ц杩欏彞鎵嶄細涓�绾т竴绾ц幏鍙栧悇绉嶅垪琛�
 
@@ -127,7 +131,38 @@ public class HomeActivity extends Activity implements OnClickListener {
 		
 		// startActivity(new Intent(this,HistoryActivity.class));
 	}
+	Handler xxmHandler=new Handler(){
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+		}
+		
+	};
+	 
+	private int restart=10;//重试次数
+	private int nowindex=0;//当前次数
+	private void timeStart() {
+		// TODO Auto-generated method stub
+		Timer authtime=new Timer();
+		authtime.schedule(new TimerTask() {
+			
+			@Override
+			public void run() { 
+				// TODO Auto-generated method stub
+				if(MyApplication.white.equals("1") && nowindex<restart){
+//					Log.d("timer",MyApplication.white);
+					AuthService mAuthService = new AuthService(xxmHandler);//联网成功就获取授权
+					mAuthService.findFromNet(false);
+					nowindex++;
+					
+				}
+				
+				
+			}
+		}, 1,8000);
+	}
 	private void addHeartBeat() {
 		mHeartBeat.start(new Beat.LoginResult() {
 			@Override

@@ -5,6 +5,7 @@ import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.ev.player.util.DeviceFun;
 import com.google.gson.Gson;
@@ -55,7 +56,7 @@ public class AuthService {
 
 				}
 
-				findFromNet(false);
+//				findFromNet(false);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -189,7 +190,12 @@ public class AuthService {
 		public void Success(String t) {
 			// TODO Auto-generated method stub
 //			System.out.println("success t.tostring="+t.toString());
-			logger.i("添加白名单成功result=" + t.toString());
+//			logger.i("添加白名单成功result=" + t.toString());
+//			Log.d("whitere",t.toString());
+			if(t.toString().equals("0") || t.toString()=="0"){
+				MyApplication.white="0";
+				 
+			}
 		}
 
 		@Override
