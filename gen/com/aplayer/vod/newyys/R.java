@@ -115,49 +115,53 @@ public final class R {
 		public static final int vod_select = 0x7f0200b4;
 	}
 	public static final class id {
-		public static final int aplayer_surfaceView = 0x7f0b0072;
-		public static final int buffer_prompt = 0x7f0b008b;
-		public static final int buffer_txt = 0x7f0b0088;
-		public static final int catgory_item_text = 0x7f0b005e;
-		public static final int choiceTv = 0x7f0b0085;
-		public static final int container_big_pause = 0x7f0b008c;
-		public static final int control_bar = 0x7f0b007e;
-		public static final int display_mode_img = 0x7f0b0065;
-		public static final int display_mode_name = 0x7f0b0066;
-		public static final int foward_next = 0x7f0b0081;
-		public static final int foward_play = 0x7f0b0080;
-		public static final int foward_previous = 0x7f0b007f;
-		public static final int gesture_bright_layout = 0x7f0b0077;
-		public static final int gesture_iv_player_bright = 0x7f0b0078;
-		public static final int gesture_iv_player_volume = 0x7f0b0075;
-		public static final int gesture_progress_layout = 0x7f0b007a;
-		public static final int gesture_volume_layout = 0x7f0b0074;
-		public static final int geture_tv_bright_percentage = 0x7f0b0079;
-		public static final int geture_tv_volume_percentage = 0x7f0b0076;
-		public static final int gvList_linearLayout = 0x7f0b008f;
-		public static final int osd_container = 0x7f0b0071;
-		public static final int pause_ad = 0x7f0b008d;
-		public static final int pause_big = 0x7f0b008e;
-		public static final int select_video = 0x7f0b0086;
-		public static final int text_current_time = 0x7f0b0082;
-		public static final int text_total_time = 0x7f0b0084;
-		public static final int top_linearLayout = 0x7f0b007c;
-		public static final int tv_info = 0x7f0b0092;
-		public static final int video_fname = 0x7f0b0090;
-		public static final int video_list = 0x7f0b0091;
-		public static final int video_name = 0x7f0b007d;
-		public static final int video_progress = 0x7f0b0083;
-		public static final int video_progress_center = 0x7f0b007b;
-		public static final int vod_buffer = 0x7f0b0087;
-		public static final int vod_buffer_img = 0x7f0b0073;
-		public static final int vod_load_anim = 0x7f0b0089;
-		public static final int vod_load_img = 0x7f0b008a;
+		public static final int aplayer_surfaceView = 0x7f0b0073;
+		public static final int buffer_prompt = 0x7f0b008e;
+		public static final int buffer_prompt_top = 0x7f0b0076;
+		public static final int buffer_txt = 0x7f0b008b;
+		public static final int catgory_item_text = 0x7f0b005f;
+		public static final int choiceTv = 0x7f0b0088;
+		public static final int container_big_pause = 0x7f0b008f;
+		public static final int control_bar = 0x7f0b0081;
+		public static final int display_mode_img = 0x7f0b0066;
+		public static final int display_mode_name = 0x7f0b0067;
+		public static final int foward_next = 0x7f0b0084;
+		public static final int foward_play = 0x7f0b0083;
+		public static final int foward_previous = 0x7f0b0082;
+		public static final int gesture_bright_layout = 0x7f0b007a;
+		public static final int gesture_iv_player_bright = 0x7f0b007b;
+		public static final int gesture_iv_player_volume = 0x7f0b0078;
+		public static final int gesture_progress_layout = 0x7f0b007d;
+		public static final int gesture_volume_layout = 0x7f0b0077;
+		public static final int geture_tv_bright_percentage = 0x7f0b007c;
+		public static final int geture_tv_volume_percentage = 0x7f0b0079;
+		public static final int gvList_linearLayout = 0x7f0b0092;
+		public static final int osd_container = 0x7f0b0072;
+		public static final int pause_ad = 0x7f0b0090;
+		public static final int pause_big = 0x7f0b0091;
+		public static final int select_video = 0x7f0b0089;
+		public static final int surface = 0x7f0b0032;
+		public static final int text_current_time = 0x7f0b0085;
+		public static final int text_total_time = 0x7f0b0087;
+		public static final int top_linearLayout = 0x7f0b007f;
+		public static final int tv_info = 0x7f0b0095;
+		public static final int video_fname = 0x7f0b0093;
+		public static final int video_list = 0x7f0b0094;
+		public static final int video_name = 0x7f0b0080;
+		public static final int video_progress = 0x7f0b0086;
+		public static final int video_progress_center = 0x7f0b007e;
+		public static final int vod_buffer = 0x7f0b008a;
+		public static final int vod_buffer_img = 0x7f0b0075;
+		public static final int vod_load_anim = 0x7f0b008c;
+		public static final int vod_load_anim_top = 0x7f0b0074;
+		public static final int vod_load_img = 0x7f0b008d;
 	}
 	public static final class layout {
-		public static final int display_mode_item = 0x7f04000b;
-		public static final int myplayer = 0x7f040012;
-		public static final int myplayer720 = 0x7f040013;
-		public static final int vod_item = 0x7f040018;
+		public static final int activity_main_vitamio = 0x7f040004;
+		public static final int display_mode_item = 0x7f04000c;
+		public static final int myplayer = 0x7f040013;
+		public static final int myplayer720 = 0x7f040014;
+		public static final int vod_item = 0x7f040019;
 	}
 	public static final class mipmap {
 		public static final int ic_launcher = 0x7f030000;
@@ -182,8 +186,9 @@ public final class R {
 		public static final int text_18_ffffff = 0x7f090005;
 		public static final int text_20_cccccc = 0x7f090003;
 		public static final int text_20_ffffff = 0x7f090002;
-		public static final int text_22_f2f2f2 = 0x7f090009;
+		public static final int text_22_f2f2f2 = 0x7f09000a;
 		public static final int text_24_cccccc = 0x7f090007;
 		public static final int text_24_ffffff = 0x7f090004;
+		public static final int text_8_f3f3f3 = 0x7f090009;
 	}
 }

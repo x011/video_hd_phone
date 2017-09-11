@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import io.vov.vitamio.Vitamio;
 
 import com.ev.android.evodshd.plus.R;
 import com.forcetech.android.ForceTV;
@@ -42,6 +43,7 @@ public class IndexActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Vitamio.isInitialized(getApplicationContext());// 加载库文件 vitamio
 		new Thread(){
 			@Override
 			public void run() {

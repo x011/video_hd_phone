@@ -32,9 +32,6 @@
 						</toolChain>
 					</folderInfo>
 					<fileInfo id="com.android.toolchain.gcc.1162401899.1031777150" name="MD5Util.java" rcbsApplicability="disable" resourcePath="src/com/moonclound/android/iptv/util/MD5Util.java" toolsToInvoke=""/>
-					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="jni"/>
-					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
