@@ -16,7 +16,7 @@ import com.moon.android.model.AuthInfo;
 import com.moon.android.model.Navigation;
 import com.moonclound.android.iptv.util.HostUtil;
 import com.moonclound.android.iptv.util.Logger;
-import com.moonclound.android.iptv.util.MACUtils;
+import com.ev.player.util.MACUtils;
 
 @SuppressLint("HandlerLeak")
 public class NavigationService {

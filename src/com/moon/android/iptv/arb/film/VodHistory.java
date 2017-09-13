@@ -1,12 +1,5 @@
 package com.moon.android.iptv.arb.film;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +9,7 @@ import android.net.Uri;
 
 import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.Logger;
-import com.moonclound.android.iptv.util.MACUtils;
+import com.ev.player.util.MACUtils;
 import com.moonclound.android.iptv.util.MD5Util;
 
 public class VodHistory {

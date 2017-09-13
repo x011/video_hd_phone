@@ -2,8 +2,7 @@ package com.moon.android.iptv.arb.film;
 
 import android.os.Environment;
 
-import com.ev.player.util.DeviceFun;
-import com.moonclound.android.iptv.util.MACUtils;
+import com.ev.player.util.MACUtils;
 
 
 public class Configs {

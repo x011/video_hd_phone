@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.Logger;
-import com.moonclound.android.iptv.util.MACUtils;
+import com.ev.player.util.MACUtils;
 import com.moonclound.android.iptv.util.MD5Util;
 
 public class ProgramCache {
