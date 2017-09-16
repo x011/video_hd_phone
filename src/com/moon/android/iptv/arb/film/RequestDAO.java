@@ -30,7 +30,7 @@ public class RequestDAO {
 	
 	public static UpdateData checkUpate(Context context) {
 		try {
-			String str1 = Configs.URL.getAppUpdateApi()+"&version=" + Tools.getVerName(context);
+			String str1 = Configs.URL.getAppUpdateApi()+"&version=" + Tools.getVerCode(context);
 			String str2 = RequestUtil.getInstance().request(str1);
 			Log.d("updataHttpre:",str2);
 			if (isBlank(str2))

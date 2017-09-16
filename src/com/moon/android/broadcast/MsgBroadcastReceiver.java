@@ -42,7 +42,6 @@ import com.moonclound.android.view.GGTextView;
 
 
 public class MsgBroadcastReceiver extends BroadcastReceiver {
-    private String downFileName="looktvb";
 	private Context mContext;
 	private Logger logger = Logger.getInstance();
 	
@@ -100,7 +99,7 @@ public class MsgBroadcastReceiver extends BroadcastReceiver {
 		// TODO Auto-generated method stub
 		Log.d("startDown","11");
 		FinalHttp fn=new FinalHttp();
-		final String path=DownPath+(downFileName+MyApplication.updateData.getVersion()+".apk");
+		final String path=DownPath+(Configs.PKG_NAME+MyApplication.updateData.getVersion()+".apk");
 		Log.d("path",path);
 		fn.download(MyApplication.updateData.getUrl(), path,true,new AjaxCallBack<File>() {
 			@Override 
@@ -152,7 +151,7 @@ public class MsgBroadcastReceiver extends BroadcastReceiver {
 	
 	}
 	private void installApl(){
-		final String path=DownPath+(downFileName+MyApplication.updateData.getVersion()+".apk");
+		final String path=DownPath+(Configs.PKG_NAME+MyApplication.updateData.getVersion()+".apk");
 		try {
 			Log.d("installpath", path);
 			 Intent intent = new Intent();

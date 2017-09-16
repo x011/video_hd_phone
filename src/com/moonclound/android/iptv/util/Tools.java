@@ -254,7 +254,7 @@ public class Tools {
 	public static int getVerCode(Context paramContext) {
 		try {
 			int i = paramContext.getPackageManager().getPackageInfo(
-					"com.component.android.iptv", 0).versionCode;
+					Configs.PKG_NAME, 0).versionCode;
 			return i;
 		} catch (PackageManager.NameNotFoundException localNameNotFoundException) {
 			localNameNotFoundException.printStackTrace();

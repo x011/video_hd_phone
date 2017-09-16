@@ -39,7 +39,6 @@ public class Configs {
 	 
 	//PLAYER VERSION  file in /ASSETS/MoonPlayer_xx.apk
 	//public static final String PLAYER_VERSION = "1.0";
-	public static final String PLAYER_PKG = "com.moon.android.moonplayer";
 	public static final String APK_NAME="update.apk";
 	public static final String INTENT_PARAM = "intent_param1";
 	public static final String INTENT_PARAM_2 = "intent_param2";
