@@ -3,6 +3,7 @@ package com.moon.android.moonplayer.service;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -14,11 +15,15 @@ import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MyApplication;
 import com.moon.android.iptv.arb.film.ProgramCache;
 import com.moon.android.model.AuthInfo;
+import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.AjaxUtil;
 import com.moonclound.android.iptv.util.DbUtil;
 import com.moonclound.android.iptv.util.HostUtil;
 import com.moonclound.android.iptv.util.Logger;
+import com.moonclound.android.iptv.util.MD5Util;
 import com.moonclound.android.iptv.util.MD5Utils;
+import com.moonclound.android.iptv.util.SecurityModule;
+import com.moonclound.android.iptv.util.Tools;
 
 public class AuthService {
 
@@ -31,13 +36,16 @@ public class AuthService {
 	private String mAuthCachePath = Configs.CachePath.AUTH;
 	public DbUtil db;
 
-	public AuthService(Handler handler) {
+	private Context mContext;
+	public AuthService(Handler handler, Context mContext) {
 		mAuthHandler = handler;
+		this.mContext = mContext;
 		db = new DbUtil(MyApplication.getApplication());
 	}
 
 	public void initAuth() {
 		// 如果缓存中有，就从缓存中获取，没有就从网络获取
+		System.out.println("1====");
 		String AuthStr = db.GetAuth();
 		if (AuthStr == null) {
 			findFromNet(true);
@@ -93,13 +101,25 @@ public class AuthService {
 	}
 
 	public void findFromNet(final boolean flag) {
+		System.out.println("2====");
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params=new AjaxParams();
-		params.put("appid", Configs.URL.APP_ID);
-		params.put("mac", Configs.URL.MAC);
-		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-		params.put("cpukey", DeviceFun.GetFileCpu());
-		params.put("Model", android.os.Build.MODEL);
+//		params.put("appid", Configs.URL.APP_ID);
+//		params.put("mac", Configs.URL.MAC);
+//		params.put("ver", Tools.getVerName(mContext));
+//		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+//		params.put("cpukey", DeviceFun.GetFileCpu());
+//		params.put("Model", android.os.Build.MODEL);
+		
+		
+		params.put("ver", SecurityModule.encryptParam(Tools.getVerName(mContext)));
+		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
+		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
+		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
+		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
+		
+		params.put("key", SecurityModule.getKeyParam());
+		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
 		
 //		System.out.println("mac = "+Configs.URL.MAC);
 //		System.out.println("cpuid = "+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
@@ -111,7 +131,8 @@ public class AuthService {
 //				+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+
 //				"&cpukey="+DeviceFun.GetFileCpu()+"&Model="+android.os.Build.MODEL);
 		
-		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
+//		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
+		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/Auth?", params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);
@@ -120,7 +141,7 @@ public class AuthService {
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
-					db.SaveAuth(t);
+//					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
 						//鉴权成功，发送白名单
 						doAddWhiteList(mAuthInfo.getToken());
@@ -175,12 +196,13 @@ public class AuthService {
 		if(token == null)
 			return;
 		AjaxParams params = new AjaxParams();
-		params.put("appid", Configs.URL.APP_ID);
-		params.put("mac", Configs.URL.MAC);
-		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-		params.put("cpukey", DeviceFun.GetFileCpu());
-		params.put("Model", android.os.Build.MODEL);
-		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
+		params.put("key", SecurityModule.getKeyParam());
+		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
+		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
+		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
+		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
+		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
+		params.put("token", SecurityModule.encryptParam(MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx")));
 		new AjaxUtil().post(Configs.URL.addWhiteListApi(), params, new ajaxPostCallback2());
 	}
 	

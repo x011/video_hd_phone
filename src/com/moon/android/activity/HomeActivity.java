@@ -24,6 +24,9 @@ import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -33,12 +36,16 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
  
 import com.ev.android.evodshd.plus.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.moon.android.broadcast.MsgBroadcastReceiver;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MsgService;
 import com.moon.android.iptv.arb.film.MyApplication;
 
 import com.moon.android.model.AuthInfo;
+import com.moon.android.model.Drama;
+import com.moon.android.model.KeyParam;
 import com.moon.android.model.Navigation;
 import com.moon.android.model.SeconMenu;
 import com.moon.android.model.VodProgram;
@@ -51,8 +58,11 @@ import com.mooncloud.android.iptv.adapter.ProgramAdapter;
 import com.mooncloud.android.iptv.adapter.SeconMenuAdapter;
 import com.mooncloud.android.iptv.database.PasswordDAO;
 import com.mooncloud.heart.beat.Beat;
+import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.ActivityUtils;
 import com.moonclound.android.iptv.util.Logger;
+import com.moonclound.android.iptv.util.MD5Util;
+import com.moonclound.android.iptv.util.SecurityModule;
 import com.moonclound.android.iptv.util.StringUtil;
 import com.moonclound.android.view.CustomToast;
 import com.moonclound.android.view.PasswordDialog;
@@ -130,7 +140,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 		startUpdatAndGetMsgService();
 		
 		// startActivity(new Intent(this,HistoryActivity.class));
+		
 	}
+	
 	Handler xxmHandler=new Handler(){
 
 		@Override
@@ -153,7 +165,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				if(MyApplication.white.equals("1") && nowindex<restart){
 //					Log.d("timer",MyApplication.white);
-					AuthService mAuthService = new AuthService(xxmHandler);//联网成功就获取授权
+					AuthService mAuthService = new AuthService(xxmHandler, HomeActivity.this);//联网成功就获取授权
 					mAuthService.findFromNet(false);
 					nowindex++;
 					

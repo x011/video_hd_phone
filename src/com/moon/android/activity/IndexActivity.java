@@ -15,17 +15,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import io.vov.vitamio.Vitamio;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
 import com.ev.android.evodshd.plus.R;
 import com.forcetech.android.ForceTV;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MyApplication;
 import com.moon.android.iptv.arb.film.StatusCodeMoon;
+import com.moon.android.model.KeyParam;
 import com.moon.android.moonplayer.service.AuthService;
 import com.moon.android.moonplayer.service.ListCacheService;
+import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.ActivityUtils;
 import com.moonclound.android.iptv.util.Logger;
+import com.moonclound.android.iptv.util.MD5Util;
 import com.moonclound.android.iptv.util.NetworkUtil;
+import com.moonclound.android.iptv.util.SecurityModule;
 
 public class IndexActivity extends Activity {
 	private ImageView mImageLoad;
@@ -107,6 +116,46 @@ public class IndexActivity extends Activity {
     public void test(){
     	Log.d("test","ssssssss");
     }
+//    private String key = "1234567891234";
+//	private void doGetKey() {
+//		// TODO Auto-generated method stub
+//		FinalHttp finalHttp = new FinalHttp();
+//		AjaxParams params = new AjaxParams();
+//		key = SecurityMD5AES.getKeyParam(13);
+//		params.put("key", key);
+//		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/GetKey?", params, getKeyCallBack);
+//	}
+//	
+//	private AjaxCallBack<Object> getKeyCallBack = new AjaxCallBack<Object>() {
+//		public void onSuccess(Object t) {
+//			System.out.println("onSuccess t.tostring="+t.toString());
+//			try {
+//				KeyParam keyParam = new Gson().fromJson(t.toString(), new TypeToken<KeyParam>() {
+//				}.getType());
+//				String content = keyParam.getKey();
+//				String password = MD5Util.getStringMD5_32(key+"666");
+//				System.out.println("content="+content+" password="+password);
+//				String val = AESSecurity.decrypt(content, password);
+//				System.out.println("aesval = "+val);
+//				Configs.KeyGet = val; //服务器key
+//				String key2 = MD5Util.getStringMD5_32(val+SecurityMD5AES.getKeyParam(6));
+//				String key3 = key2.substring(0, 8);
+//				String key4 = SecurityMD5AES.replaceStr(key3); 
+//				Configs.KeyParam = key4; //AES秘钥
+//				System.out.println("keyvalue = "+Configs.KeyParam);
+//				
+//				mAuthService.initAuth();
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				e.printStackTrace();
+//			}
+//			
+//			
+//		};
+//		public void onFailure(Throwable t, int errorNo, String strMsg) {
+//			System.out.println("onFailure strMsg="+strMsg);
+//		};
+//	};
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -118,9 +167,18 @@ public class IndexActivity extends Activity {
 			case Configs.NETWORK_CONNECT:
 				logger.i("联网状 态开始");
 //				new ListCacheService(mHandler);
-				mAuthService = new AuthService(mHandler);//联网成功就获取授权
+//				mAuthService = new AuthService(mHandler);//联网成功就获取授权
+//				doGetKey();
+				SecurityModule.getKeyFromServer(mHandler);
+				break;
+			case SecurityModule.KEY_SUCCESS:
+				System.out.println("getkey success..............");
+				mAuthService = new AuthService(mHandler, IndexActivity.this);//联网成功就获取授权
 				mAuthService.initAuth();
-				
+				break;
+			case SecurityModule.KEY_FAILED:
+				System.out.println("getkey failed..............");
+				Toast.makeText(IndexActivity.this, "access denied", Toast.LENGTH_LONG).show();
 				break;
 			case Configs.Success.AUTH_OK:
 				MyApplication.authInfo=mAuthService.getAuthInfo();//授权成功就把授权信息保存到Application范围
