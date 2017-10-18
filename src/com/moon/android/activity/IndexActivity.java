@@ -113,49 +113,7 @@ public class IndexActivity extends Activity {
 		else
 			mHandler.sendEmptyMessage(Configs.NETWORK_CONNECT);
 	}
-    public void test(){
-    	Log.d("test","ssssssss");
-    }
-//    private String key = "1234567891234";
-//	private void doGetKey() {
-//		// TODO Auto-generated method stub
-//		FinalHttp finalHttp = new FinalHttp();
-//		AjaxParams params = new AjaxParams();
-//		key = SecurityMD5AES.getKeyParam(13);
-//		params.put("key", key);
-//		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/GetKey?", params, getKeyCallBack);
-//	}
-//	
-//	private AjaxCallBack<Object> getKeyCallBack = new AjaxCallBack<Object>() {
-//		public void onSuccess(Object t) {
-//			System.out.println("onSuccess t.tostring="+t.toString());
-//			try {
-//				KeyParam keyParam = new Gson().fromJson(t.toString(), new TypeToken<KeyParam>() {
-//				}.getType());
-//				String content = keyParam.getKey();
-//				String password = MD5Util.getStringMD5_32(key+"666");
-//				System.out.println("content="+content+" password="+password);
-//				String val = AESSecurity.decrypt(content, password);
-//				System.out.println("aesval = "+val);
-//				Configs.KeyGet = val; //服务器key
-//				String key2 = MD5Util.getStringMD5_32(val+SecurityMD5AES.getKeyParam(6));
-//				String key3 = key2.substring(0, 8);
-//				String key4 = SecurityMD5AES.replaceStr(key3); 
-//				Configs.KeyParam = key4; //AES秘钥
-//				System.out.println("keyvalue = "+Configs.KeyParam);
-//				
-//				mAuthService.initAuth();
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				e.printStackTrace();
-//			}
-//			
-//			
-//		};
-//		public void onFailure(Throwable t, int errorNo, String strMsg) {
-//			System.out.println("onFailure strMsg="+strMsg);
-//		};
-//	};
+	
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -172,12 +130,12 @@ public class IndexActivity extends Activity {
 				SecurityModule.getKeyFromServer(mHandler);
 				break;
 			case SecurityModule.KEY_SUCCESS:
-				System.out.println("getkey success..............");
+				System.out.println("------getkey success..............");
 				mAuthService = new AuthService(mHandler, IndexActivity.this);//联网成功就获取授权
 				mAuthService.initAuth();
 				break;
 			case SecurityModule.KEY_FAILED:
-				System.out.println("getkey failed..............");
+				System.out.println("------getkey failed..............");
 				Toast.makeText(IndexActivity.this, "access denied", Toast.LENGTH_LONG).show();
 				break;
 			case Configs.Success.AUTH_OK:

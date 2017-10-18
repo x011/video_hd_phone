@@ -59,9 +59,9 @@ public class Configs {
 		
 		//vodchina1.ibcde.net(xiangYunZhiBo)
 		//vod1.ibcde.net(yueGangShiJie)
-		public static String HOST1="http://vodplus.etvhk.com/Api/";//正式库1
-		public static final String HOST2="http://vodplus.etvb.hk/Api/";//正式库2
-		public static final String HOST3="http://vodplus.iesaytv.com/Api/";//正式库3  http://hdvod.etvhk.com/Api/
+		public static String HOST1="http://vodplus.etvhk.com/Secret/";//正式库1
+		public static final String HOST2="http://vodplus.etvb.hk/Secret/";//正式库2
+		public static final String HOST3="http://vodplus.iesaytv.com/Secret/";//正式库3  http://hdvod.etvhk.com/Api/
 		public static String HOST=HOST1;//正式库
 //		 
 //		public static final String HOST1="http://23.89.145.178:9011/Api/";//测试库1

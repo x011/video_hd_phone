@@ -100,10 +100,27 @@ public class AuthService {
 		Configs.link = mAuthInfo.getLink();
 	}
 
+	String urlTest = "";
+	private void doTest(String urlTest) {
+		// TODO Auto-generated method stub
+		FinalHttp finalHttp = new FinalHttp();
+		finalHttp.get(urlTest, testCallBack);
+	}
+	private AjaxCallBack<Object> testCallBack = new AjaxCallBack<Object>() {
+		public void onSuccess(Object t) {
+			System.out.println("++++dotest success="+t.toString());
+			
+		};
+		public void onFailure(Throwable t, int errorNo, String strMsg) {
+			System.out.println("++++dotest failed="+strMsg);
+			
+		};
+	};
 	public void findFromNet(final boolean flag) {
 		System.out.println("2====");
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params=new AjaxParams();
+		//old
 //		params.put("appid", Configs.URL.APP_ID);
 //		params.put("mac", Configs.URL.MAC);
 //		params.put("ver", Tools.getVerName(mContext));
@@ -111,38 +128,47 @@ public class AuthService {
 //		params.put("cpukey", DeviceFun.GetFileCpu());
 //		params.put("Model", android.os.Build.MODEL);
 		
+		//new
+		String ver = SecurityModule.encryptParam(Tools.getVerName(mContext));
+		String cpuid = SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+		String cpukey = SecurityModule.encryptParam(DeviceFun.GetFileCpu());
+		String Model = SecurityModule.encryptParam(android.os.Build.MODEL);
+		String appid = SecurityModule.encryptParam(Configs.URL.APP_ID);
+		String mac = SecurityModule.encryptParam(Configs.URL.MAC);
+		String key = SecurityModule.getKeyParam();
+		System.out.println("mac = "+mac);
+		System.out.println("cpuid = "+cpuid);
+		System.out.println("cpukey = "+cpukey);
+		System.out.println("appid = "+appid);
+		System.out.println("Model = "+Model);
+		System.out.println("ver = "+ver);
+		System.out.println("key = "+key);
+		params.put("ver", ver);
+		params.put("cpuid", cpuid);
+		params.put("cpukey", cpukey);
+		params.put("Model", Model);
+		params.put("appid", appid);
+		params.put("mac", mac);
+		params.put("key", key);
 		
-		params.put("ver", SecurityModule.encryptParam(Tools.getVerName(mContext)));
-		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
-		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
-		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
-		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
+		urlTest = Configs.URL.getAuthApi()+"appid="+appid+"&mac="+mac+"&cpuid="+cpuid+"&cpukey="+cpukey+"&Model="+Model+"&ver="+ver+"&key="+key;
+		System.out.println("authUrl = "+urlTest);
 		
-		params.put("key", SecurityModule.getKeyParam());
-		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
-		
-//		System.out.println("mac = "+Configs.URL.MAC);
-//		System.out.println("cpuid = "+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-//		System.out.println("cpukey = "+DeviceFun.GetFileCpu());
-//		System.out.println("appid = "+Configs.APPID);
-//		System.out.println("Model = "+android.os.Build.MODEL);
-		
-//		System.out.println("authUrl = "+Configs.URL.getAuthApi()+"appid="+Configs.URL.APP_ID+"&mac="+Configs.URL.MAC
-//				+"&cpuid="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+
-//				"&cpukey="+DeviceFun.GetFileCpu()+"&Model="+android.os.Build.MODEL);
-		
-//		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
-		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/Auth?", params,new AjaxCallBack<String>() {
+		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
+//		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/Auth?", params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);
 				try {
-//					System.out.println("t.tostring="+t.toString());
+					System.out.println("------------auth success="+t.toString());
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
 //					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
+						//test code
+						doTest(urlTest);
+						//test end
 						//鉴权成功，发送白名单
 						doAddWhiteList(mAuthInfo.getToken());
 						if (flag) {
@@ -170,6 +196,7 @@ public class AuthService {
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				super.onFailure(t, errorNo, strMsg);
+				System.out.println("------------auth failed : "+strMsg);
 				logger.i("网络连接异常,strMsg=" + strMsg + "  errorNo=" + errorNo
 						+ "  flag=" + flag);
 
@@ -191,18 +218,36 @@ public class AuthService {
 	/**
 	 * 添加白名单
 	 */
-	private void doAddWhiteList(String token) {
+	public void doAddWhiteList(String token) {
 		// TODO Auto-generated method stub
 		if(token == null)
 			return;
 		AjaxParams params = new AjaxParams();
+		
+		//old
+//		params.put("appid", Configs.URL.APP_ID);
+//		params.put("mac", Configs.URL.MAC);
+//		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+//		params.put("cpukey", DeviceFun.GetFileCpu());
+//		params.put("Model", android.os.Build.MODEL);
+//		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
+//		Configs.URL.HOST1 = "http://vodplus.etvhk.com/Api/";
+		//new
 		params.put("key", SecurityModule.getKeyParam());
 		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
 		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
 		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
 		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
 		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
-		params.put("token", SecurityModule.encryptParam(MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx")));
+		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
+		//print
+//		System.out.println("key="+SecurityModule.getKeyParam());
+//		System.out.println("appid="+SecurityModule.encryptParam(Configs.URL.APP_ID));
+//		System.out.println("mac="+SecurityModule.encryptParam(Configs.URL.MAC));
+//		System.out.println("cpuid before="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
+//		System.out.println("cpukey before="+DeviceFun.GetFileCpu());
+//		System.out.println("Model="+SecurityModule.encryptParam(android.os.Build.MODEL));
+//		System.out.println("token="+MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
 		new AjaxUtil().post(Configs.URL.addWhiteListApi(), params, new ajaxPostCallback2());
 	}
 	
@@ -212,7 +257,7 @@ public class AuthService {
 		public void Success(String t) {
 			// TODO Auto-generated method stub
 //			System.out.println("success t.tostring="+t.toString());
-//			logger.i("添加白名单成功result=" + t.toString());
+			System.out.println("------------add whiteList success   "+t.toString());
 //			Log.d("whitere",t.toString());
 			if(t.toString().equals("0") || t.toString()=="0"){
 				MyApplication.white="0";
@@ -223,7 +268,7 @@ public class AuthService {
 		@Override
 		public void Failure(String host, int errorNo) {
 			// TODO Auto-generated method stub
-//			System.out.println("host="+host+"     Failure errorNo="+errorNo);
+			System.out.println("------------add whiteList failed");
 			logger.i("添加白名单失败"+"host="+host+" errorNo="+errorNo);
 		}
 		

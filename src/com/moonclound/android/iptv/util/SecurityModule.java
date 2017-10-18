@@ -15,6 +15,7 @@ import net.tsz.afinal.http.AjaxParams;
 
 public class SecurityModule {
 
+	private static final String KEYHOST = "http://vodplus.etvhk.com/Secret/AppNew/GetKey?"; //http://192.168.31.220:9011/Secret/AppNew/GetKey?
 	public static String KeyGet = "1234567891234567";
 	public static String KeyLocal = "1234567891234567";
 	public static String KeyLocal2 = "1234567891234567";
@@ -94,7 +95,7 @@ public class SecurityModule {
 		keyToServer = getRandomStr(9);
 		System.out.println("keyToServer 0 = "+keyToServer);
 		params.put("key", keyToServer);
-		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/GetKey?", params, getKeyCallBack);
+		finalHttp.post(KEYHOST, params, getKeyCallBack);
 	}
 
 	private static AjaxCallBack<Object> getKeyCallBack = new AjaxCallBack<Object>() {
@@ -125,7 +126,7 @@ public class SecurityModule {
 		};
 
 		public void onFailure(Throwable t, int errorNo, String strMsg) {
-			System.out.println(startNum + "   onFailure strMsg=" + strMsg);
+			System.out.println(startNum + " ================ onFailure strMsg=" + strMsg);
 			if(startNum < endNum){
 				if(AESHandler != null)
 					getKeyFromServer(AESHandler);
@@ -147,18 +148,18 @@ public class SecurityModule {
 		String key4 = replaceStr(key3);
 		KeyLocal = key3;
 		KeyLocal2 = key4;
-		System.out.println("keyvalue = " + KeyLocal);
+//		System.out.println("keyvalue = " + KeyLocal);
 		
 		String AESParam = AESSecurity.encrypt(param,
 				MD5Util.getStringMD5_32(KeyLocal + KeyGet));
-		System.out.println("KeyLocal = " + KeyLocal);
-		System.out.println("KeyLocal2= " + KeyLocal2);
-		System.out.println("KeyGet = " + KeyGet);
-		System.out.println("AESParam = " + AESParam);
+//		System.out.println("KeyLocal = " + KeyLocal);
+//		System.out.println("KeyLocal2= " + KeyLocal2);
+//		System.out.println("KeyGet = " + KeyGet);
+//		System.out.println("AESParam = " + AESParam);
 		StringBuilder sb = new StringBuilder(AESParam);
 		sb.insert(1, KeyLocal2);
 		AESParam = sb.toString();
-		System.out.println("AESmac = " + AESParam);
+//		System.out.println("AESmac = " + AESParam);
 		return AESParam;
 	}
 
