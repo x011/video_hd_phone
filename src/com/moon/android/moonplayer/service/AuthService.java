@@ -164,11 +164,8 @@ public class AuthService {
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
-//					db.SaveAuth(t);
+					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
-						//test code
-						doTest(urlTest);
-						//test end
 						//鉴权成功，发送白名单
 						doAddWhiteList(mAuthInfo.getToken());
 						if (flag) {
@@ -258,6 +255,9 @@ public class AuthService {
 			// TODO Auto-generated method stub
 //			System.out.println("success t.tostring="+t.toString());
 			System.out.println("------------add whiteList success   "+t.toString());
+			//test code
+			doTest(urlTest);
+			//test end
 //			Log.d("whitere",t.toString());
 			if(t.toString().equals("0") || t.toString()=="0"){
 				MyApplication.white="0";

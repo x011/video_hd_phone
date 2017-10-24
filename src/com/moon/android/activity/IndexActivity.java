@@ -136,7 +136,7 @@ public class IndexActivity extends Activity {
 				break;
 			case SecurityModule.KEY_FAILED:
 				System.out.println("------getkey failed..............");
-				Toast.makeText(IndexActivity.this, "access denied", Toast.LENGTH_LONG).show();
+				Toast.makeText(IndexActivity.this, "Pass 002", Toast.LENGTH_LONG).show();
 				break;
 			case Configs.Success.AUTH_OK:
 				MyApplication.authInfo=mAuthService.getAuthInfo();//授权成功就把授权信息保存到Application范围
