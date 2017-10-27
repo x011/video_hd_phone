@@ -45,30 +45,25 @@ public class AuthService {
 
 	public void initAuth() {
 		// 如果缓存中有，就从缓存中获取，没有就从网络获取
-		System.out.println("1====");
+		System.out.println("initAuth 1====");
 		String AuthStr = db.GetAuth();
 		if (AuthStr == null) {
 			findFromNet(true);
 		} else {
 			try {
+				System.out.println("initAuth cache===="+AuthStr);
 				mAuthInfo = new Gson().fromJson(AuthStr, AuthInfo.class);
-				
 				if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
-
 					mAuthHandler.sendEmptyMessage(Configs.Success.AUTH_OK);
-
 					initApplicationParam();
 				} else {
-
 					mAuthHandler.sendEmptyMessage(Configs.Failure.AUTH_WRONG);
-
 				}
-
 //				findFromNet(false);
 			} catch (Exception e) {
+				System.out.println("initAuth cache error====");
 				// TODO: handle exception
 			}
-
 		}
 
 		// if(!ProgramCache.isExist(mAuthCachePath)){
@@ -100,35 +95,10 @@ public class AuthService {
 		Configs.link = mAuthInfo.getLink();
 	}
 
-	String urlTest = "";
-	private void doTest(String urlTest) {
-		// TODO Auto-generated method stub
-		FinalHttp finalHttp = new FinalHttp();
-		finalHttp.get(urlTest, testCallBack);
-	}
-	private AjaxCallBack<Object> testCallBack = new AjaxCallBack<Object>() {
-		public void onSuccess(Object t) {
-			System.out.println("++++dotest success="+t.toString());
-			
-		};
-		public void onFailure(Throwable t, int errorNo, String strMsg) {
-			System.out.println("++++dotest failed="+strMsg);
-			
-		};
-	};
 	public void findFromNet(final boolean flag) {
-		System.out.println("2====");
+		System.out.println("initAuth 2====");
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params=new AjaxParams();
-		//old
-//		params.put("appid", Configs.URL.APP_ID);
-//		params.put("mac", Configs.URL.MAC);
-//		params.put("ver", Tools.getVerName(mContext));
-//		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-//		params.put("cpukey", DeviceFun.GetFileCpu());
-//		params.put("Model", android.os.Build.MODEL);
-		
-		//new
 		String ver = SecurityModule.encryptParam(Tools.getVerName(mContext));
 		String cpuid = SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
 		String cpukey = SecurityModule.encryptParam(DeviceFun.GetFileCpu());
@@ -136,13 +106,13 @@ public class AuthService {
 		String appid = SecurityModule.encryptParam(Configs.URL.APP_ID);
 		String mac = SecurityModule.encryptParam(Configs.URL.MAC);
 		String key = SecurityModule.getKeyParam();
-		System.out.println("mac = "+mac);
-		System.out.println("cpuid = "+cpuid);
-		System.out.println("cpukey = "+cpukey);
-		System.out.println("appid = "+appid);
-		System.out.println("Model = "+Model);
-		System.out.println("ver = "+ver);
-		System.out.println("key = "+key);
+//		System.out.println("mac = "+mac);
+//		System.out.println("cpuid = "+cpuid);
+//		System.out.println("cpukey = "+cpukey);
+//		System.out.println("appid = "+appid);
+//		System.out.println("Model = "+Model);
+//		System.out.println("ver = "+ver);
+//		System.out.println("key = "+key);
 		params.put("ver", ver);
 		params.put("cpuid", cpuid);
 		params.put("cpukey", cpukey);
@@ -151,11 +121,10 @@ public class AuthService {
 		params.put("mac", mac);
 		params.put("key", key);
 		
-		urlTest = Configs.URL.getAuthApi()+"appid="+appid+"&mac="+mac+"&cpuid="+cpuid+"&cpukey="+cpukey+"&Model="+Model+"&ver="+ver+"&key="+key;
-		System.out.println("authUrl = "+urlTest);
+//		String urlTest = Configs.URL.getAuthApi()+"appid="+appid+"&mac="+mac+"&cpuid="+cpuid+"&cpukey="+cpukey+"&Model="+Model+"&ver="+ver+"&key="+key;
+//		System.out.println("authUrl = "+urlTest);
 		
 		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
-//		finalHttp.post("http://192.168.31.220:9011/Secret/AppNew/Auth?", params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);
@@ -164,6 +133,13 @@ public class AuthService {
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
+					if(mAuthInfo == null){
+						if (flag) {
+							mAuthHandler
+									.sendEmptyMessage(Configs.Failure.AUTH_WRONG);
+						}
+						return;
+					}
 					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
 						//鉴权成功，发送白名单
@@ -220,16 +196,6 @@ public class AuthService {
 		if(token == null)
 			return;
 		AjaxParams params = new AjaxParams();
-		
-		//old
-//		params.put("appid", Configs.URL.APP_ID);
-//		params.put("mac", Configs.URL.MAC);
-//		params.put("cpuid", DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-//		params.put("cpukey", DeviceFun.GetFileCpu());
-//		params.put("Model", android.os.Build.MODEL);
-//		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
-//		Configs.URL.HOST1 = "http://vodplus.etvhk.com/Api/";
-		//new
 		params.put("key", SecurityModule.getKeyParam());
 		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
 		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
@@ -255,10 +221,6 @@ public class AuthService {
 			// TODO Auto-generated method stub
 //			System.out.println("success t.tostring="+t.toString());
 			System.out.println("------------add whiteList success   "+t.toString());
-			//test code
-			doTest(urlTest);
-			//test end
-//			Log.d("whitere",t.toString());
 			if(t.toString().equals("0") || t.toString()=="0"){
 				MyApplication.white="0";
 				 

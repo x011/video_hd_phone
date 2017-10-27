@@ -94,7 +94,8 @@ public class IndexActivity extends Activity {
 				//	deleteFile(Configs.CachePath.AUTH);
 					if (NetworkUtil.isConnectingToInternet(IndexActivity.this)){
 						showLoadContainer(true);
-						mAuthService.findFromNet(true);
+//						mAuthService.findFromNet(true);
+						SecurityModule.getKeyFromServer(mBtHandler);
 					}else{
 						showLoadContainer(false);
 						mHandler.sendEmptyMessage(Configs.NETWORK_NOT_CONNECT);
@@ -106,6 +107,21 @@ public class IndexActivity extends Activity {
 			}
 		};
 
+	private Handler mBtHandler= new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case SecurityModule.KEY_SUCCESS:
+				System.out.println("------getkey success..............");
+				mAuthService.findFromNet(true);
+				break;
+			case SecurityModule.KEY_FAILED:
+				System.out.println("------getkey failed..............");
+				Toast.makeText(IndexActivity.this, "Pass002", Toast.LENGTH_LONG).show();
+				break;
+			}
+		};
+	};
+	
 	private void checkNetwork() {
 		logger.i("network connect");
 		if (!NetworkUtil.isConnectingToInternet(this))
@@ -136,7 +152,7 @@ public class IndexActivity extends Activity {
 				break;
 			case SecurityModule.KEY_FAILED:
 				System.out.println("------getkey failed..............");
-				Toast.makeText(IndexActivity.this, "Pass 002", Toast.LENGTH_LONG).show();
+				Toast.makeText(IndexActivity.this, "Pass002", Toast.LENGTH_LONG).show();
 				break;
 			case Configs.Success.AUTH_OK:
 				MyApplication.authInfo=mAuthService.getAuthInfo();//授权成功就把授权信息保存到Application范围
