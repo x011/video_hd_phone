@@ -93,22 +93,22 @@ public class SecurityModule {
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params = new AjaxParams();
 		keyToServer = getRandomStr(9);
-		System.out.println("keyToServer 0 = "+keyToServer);
+//		System.out.println("keyToServer 0 = "+keyToServer);
 		params.put("key", keyToServer);
 		finalHttp.post(KEYHOST, params, getKeyCallBack);
 	}
 
 	private static AjaxCallBack<Object> getKeyCallBack = new AjaxCallBack<Object>() {
 		public void onSuccess(Object t) {
-			System.out.println("onSuccess t.tostring=" + t.toString());
+//			System.out.println("onSuccess t.tostring=" + t.toString());
 			try {
 				KeyParam keyParam = new Gson().fromJson(t.toString(), new TypeToken<KeyParam>() {
 				}.getType());
 				String content = keyParam.getKey();
 				String password = MD5Util.getStringMD5_32(keyToServer + appendStr);
-				System.out.println("content=" + content + " password=" + password);
+//				System.out.println("content=" + content + " password=" + password);
 				String val = AESSecurity.decrypt(content, password);
-				System.out.println("aesval = " + val);
+//				System.out.println("aesval = " + val);
 				KeyGet = val;
 
 //				String key3 = (MD5Util.getStringMD5_32(KeyGet + getRandomStr(6))).substring(0, 8);
@@ -126,7 +126,7 @@ public class SecurityModule {
 		};
 
 		public void onFailure(Throwable t, int errorNo, String strMsg) {
-			System.out.println(startNum + " ================ onFailure strMsg=" + strMsg);
+//			System.out.println(startNum + " ================ onFailure strMsg=" + strMsg);
 			if(startNum < endNum){
 				if(AESHandler != null)
 					getKeyFromServer(AESHandler);
@@ -170,7 +170,7 @@ public class SecurityModule {
 	 */
 	public static String getKeyParam() {
 		// TODO Auto-generated method stub
-		System.out.println("keyToServer = "+keyToServer);
+//		System.out.println("keyToServer = "+keyToServer);
 		return AESSecurity.encrypt(keyToServer, "1234567891234567");
 	}
 }

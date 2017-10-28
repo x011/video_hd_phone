@@ -45,13 +45,13 @@ public class AuthService {
 
 	public void initAuth() {
 		// 如果缓存中有，就从缓存中获取，没有就从网络获取
-		System.out.println("initAuth 1====");
+//		System.out.println("initAuth 1====");
 		String AuthStr = db.GetAuth();
 		if (AuthStr == null) {
 			findFromNet(true);
 		} else {
 			try {
-				System.out.println("initAuth cache===="+AuthStr);
+//				System.out.println("initAuth cache===="+AuthStr);
 				mAuthInfo = new Gson().fromJson(AuthStr, AuthInfo.class);
 				if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
 					mAuthHandler.sendEmptyMessage(Configs.Success.AUTH_OK);
@@ -61,7 +61,7 @@ public class AuthService {
 				}
 //				findFromNet(false);
 			} catch (Exception e) {
-				System.out.println("initAuth cache error====");
+//				System.out.println("initAuth cache error====");
 				// TODO: handle exception
 			}
 		}
@@ -129,7 +129,7 @@ public class AuthService {
 			public void onSuccess(String t) {
 				super.onSuccess(t);
 				try {
-					System.out.println("------------auth success="+t.toString());
+//					System.out.println("------------auth success="+t.toString());
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
 					// 初始化全局播放授权的link标识值
 					// saveAllToCache(t);
@@ -169,7 +169,7 @@ public class AuthService {
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				super.onFailure(t, errorNo, strMsg);
-				System.out.println("------------auth failed : "+strMsg);
+//				System.out.println("------------auth failed : "+strMsg);
 				logger.i("网络连接异常,strMsg=" + strMsg + "  errorNo=" + errorNo
 						+ "  flag=" + flag);
 
@@ -220,7 +220,7 @@ public class AuthService {
 		public void Success(String t) {
 			// TODO Auto-generated method stub
 //			System.out.println("success t.tostring="+t.toString());
-			System.out.println("------------add whiteList success   "+t.toString());
+//			System.out.println("------------add whiteList success   "+t.toString());
 			if(t.toString().equals("0") || t.toString()=="0"){
 				MyApplication.white="0";
 				 
@@ -230,7 +230,7 @@ public class AuthService {
 		@Override
 		public void Failure(String host, int errorNo) {
 			// TODO Auto-generated method stub
-			System.out.println("------------add whiteList failed");
+//			System.out.println("------------add whiteList failed");
 			logger.i("添加白名单失败"+"host="+host+" errorNo="+errorNo);
 		}
 		

@@ -111,11 +111,11 @@ public class IndexActivity extends Activity {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case SecurityModule.KEY_SUCCESS:
-				System.out.println("------getkey success..............");
+//				System.out.println("------getkey success..............");
 				mAuthService.findFromNet(true);
 				break;
 			case SecurityModule.KEY_FAILED:
-				System.out.println("------getkey failed..............");
+//				System.out.println("------getkey failed..............");
 				Toast.makeText(IndexActivity.this, "Pass002", Toast.LENGTH_LONG).show();
 				break;
 			}
@@ -146,12 +146,12 @@ public class IndexActivity extends Activity {
 				SecurityModule.getKeyFromServer(mHandler);
 				break;
 			case SecurityModule.KEY_SUCCESS:
-				System.out.println("------getkey success..............");
+//				System.out.println("------getkey success..............");
 				mAuthService = new AuthService(mHandler, IndexActivity.this);//联网成功就获取授权
 				mAuthService.initAuth();
 				break;
 			case SecurityModule.KEY_FAILED:
-				System.out.println("------getkey failed..............");
+//				System.out.println("------getkey failed..............");
 				Toast.makeText(IndexActivity.this, "Pass002", Toast.LENGTH_LONG).show();
 				break;
 			case Configs.Success.AUTH_OK:
