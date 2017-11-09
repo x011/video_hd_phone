@@ -8,23 +8,23 @@ import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.model.KeyParam;
 
 import android.os.Handler;
-import android.widget.Toast;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
 public class SecurityModule {
 
-	private static final String KEYHOST = "http://vodplus.etvhk.com/Secret/AppNew/GetKey?"; //http://192.168.31.220:9011/Secret/AppNew/GetKey?
+	public static boolean IsDebug = false;
 	public static String KeyGet = "1234567891234567";
 	public static String KeyLocal = "1234567891234567";
 	public static String KeyLocal2 = "1234567891234567";
 	private static int figures = 6;// 随机数位数
-	private static String appendStr = "666";// 秘钥追加字符
+	public static String appendStr = "666";// 秘钥追加字符
 	public static final int KEY_SUCCESS = 1000;
 	public static final int KEY_FAILED = 1001;
-	private static int startNum = 0;
-	private static int endNum = 10;
+	public static String getGetKey(){
+		return "AppNew/GetKey?";
+	}
 
 	public static void main(String[] args) {
 		String keyParam = getRandomStr(figures);
@@ -80,59 +80,51 @@ public class SecurityModule {
 		return DEXkye;
 	}
 
-	private static String keyToServer = "";
+	public static String keyToServer = "";
 	private static Handler AESHandler;
 
+	public static String keyHost = Configs.URL.HOST1;
 	/**
 	 * 从服务器获取秘钥
 	 */
-	public static void getKeyFromServer(Handler mHandler) {
+	public static void getKeyFromServerModule(Handler mHandler) {
 		// TODO Auto-generated method stub
-		startNum ++;
 		AESHandler = mHandler;
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params = new AjaxParams();
 		keyToServer = getRandomStr(9);
-//		System.out.println("keyToServer 0 = "+keyToServer);
 		params.put("key", keyToServer);
-		finalHttp.post(KEYHOST, params, getKeyCallBack);
+		finalHttp.post(keyHost + getGetKey(), params, getKeyCallBack);
 	}
-
 	private static AjaxCallBack<Object> getKeyCallBack = new AjaxCallBack<Object>() {
 		public void onSuccess(Object t) {
-//			System.out.println("onSuccess t.tostring=" + t.toString());
+			if(IsDebug)
+				System.out.println("getKey success -- " + t.toString());
 			try {
 				KeyParam keyParam = new Gson().fromJson(t.toString(), new TypeToken<KeyParam>() {
 				}.getType());
 				String content = keyParam.getKey();
 				String password = MD5Util.getStringMD5_32(keyToServer + appendStr);
-//				System.out.println("content=" + content + " password=" + password);
 				String val = AESSecurity.decrypt(content, password);
-//				System.out.println("aesval = " + val);
 				KeyGet = val;
-
-//				String key3 = (MD5Util.getStringMD5_32(KeyGet + getRandomStr(6))).substring(0, 8);
-//				String key4 = replaceStr(key3);
-//				KeyLocal = key3;
-//				KeyLocal2 = key4;
-//				System.out.println("keyvalue = " + KeyLocal);
-
 				AESHandler.sendEmptyMessage(KEY_SUCCESS);
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-
 		};
-
 		public void onFailure(Throwable t, int errorNo, String strMsg) {
-//			System.out.println(startNum + " ================ onFailure strMsg=" + strMsg);
-			if(startNum < endNum){
-				if(AESHandler != null)
-					getKeyFromServer(AESHandler);
-			}else{
+			if(IsDebug)
+				System.out.println("getKey failed -- "+keyHost + getGetKey() + " -- " + strMsg);
+			if(keyHost.equals(Configs.URL.HOST1)){
+				keyHost = Configs.URL.HOST2;
+			}else if(keyHost.equals(Configs.URL.HOST2)){
+				keyHost = Configs.URL.HOST3;
+			}else if(keyHost.equals(Configs.URL.HOST3)){
 				AESHandler.sendEmptyMessage(KEY_FAILED);
+				return;
 			}
+			getKeyFromServerModule(AESHandler);
 		};
 	};
 

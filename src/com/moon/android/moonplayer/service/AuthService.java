@@ -7,14 +7,17 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ev.player.util.DeviceFun;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MyApplication;
 import com.moon.android.iptv.arb.film.ProgramCache;
 import com.moon.android.model.AuthInfo;
+import com.moon.android.model.KeyParam;
 import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.AjaxUtil;
 import com.moonclound.android.iptv.util.DbUtil;
@@ -45,13 +48,11 @@ public class AuthService {
 
 	public void initAuth() {
 		// 如果缓存中有，就从缓存中获取，没有就从网络获取
-//		System.out.println("initAuth 1====");
 		String AuthStr = db.GetAuth();
 		if (AuthStr == null) {
 			findFromNet(true);
 		} else {
 			try {
-//				System.out.println("initAuth cache===="+AuthStr);
 				mAuthInfo = new Gson().fromJson(AuthStr, AuthInfo.class);
 				if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
 					mAuthHandler.sendEmptyMessage(Configs.Success.AUTH_OK);
@@ -59,32 +60,11 @@ public class AuthService {
 				} else {
 					mAuthHandler.sendEmptyMessage(Configs.Failure.AUTH_WRONG);
 				}
-//				findFromNet(false);
+				findFromNet(false);
 			} catch (Exception e) {
-//				System.out.println("initAuth cache error====");
 				// TODO: handle exception
 			}
 		}
-
-		// if(!ProgramCache.isExist(mAuthCachePath)){
-		// logger.i("授权来自网络");
-		// findFromNet(true);
-		// }else{
-		// try {
-		// mAuthInfo=findFromCache();
-		// logger.i("授权信息:"+mAuthInfo.toString());
-		// //url=http://vodchina2.ibcde.net:9011/Api/Video/menu?appid=2003&mac=002157f3b51c]截取到Api/
-		// // int index=mAuthInfo.getUrl().indexOf("9011");
-		// // Configs.URL.HOST=mAuthInfo.getUrl().substring(0, index+9);
-		// logger.i("从授权初始化主机地址Host="+Configs.URL.HOST);
-		// mAuthHandler.sendEmptyMessage(Configs.Success.AUTH_OK);
-		// initApplicationParam();
-		// findFromNet(false);
-		// } catch (Exception e) {
-		// mAuthHandler.sendEmptyMessage(Configs.Failure.AUTH_WRONG);
-		// logger.e(e.toString());
-		// }
-		// }
 	}
 
 	/**
@@ -95,8 +75,89 @@ public class AuthService {
 		Configs.link = mAuthInfo.getLink();
 	}
 
+	private void AuthIp(final String token) {
+		// TODO Auto-generated method stub
+		FinalHttp fn=new FinalHttp();
+		AjaxParams params = new AjaxParams();
+		params.put("key", SecurityModule.getKeyParam());
+		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
+		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
+		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
+		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
+		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
+		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
+		fn.post(currentHost+Configs.URL.addWhiteListApi(), params, new AjaxCallBack<Object>() {
+			
+			@Override
+			public void onSuccess(Object t) {
+				// TODO Auto-generated method stub
+				super.onSuccess(t);
+				if(SecurityModule.IsDebug)
+					System.out.println("stream -- "+t.toString());
+			}
+			 @Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				// TODO Auto-generated method stub
+				if(SecurityModule.IsDebug)
+					System.out.println("stream -- " +Configs.URL.addWhiteListApi()+" -- "+strMsg);
+				super.onFailure(t, errorNo, strMsg);
+				startNum ++;
+				if(startNum>=endNum){
+					startNum = 0;
+					Toast.makeText(mContext, "Pass003", Toast.LENGTH_LONG).show();
+				}else{
+					AuthIp(token);
+				}
+			}
+		});
+		
+	}
+	
+	//设置getkey,auth,stream的唯一域名
+	private String currentHost = Configs.URL.HOST;
+	private int startNum = 0;
+	private int endNum = 3;
 	public void findFromNet(final boolean flag) {
-		System.out.println("initAuth 2====");
+		FinalHttp finalHttp = new FinalHttp();
+		AjaxParams params = new AjaxParams();
+		SecurityModule.keyToServer = SecurityModule.getRandomStr(9);
+		params.put("key", SecurityModule.keyToServer);
+		finalHttp.post(SecurityModule.keyHost + SecurityModule.getGetKey(), params, new AjaxCallBack<Object>() {
+			public void onSuccess(Object t) {
+				currentHost = SecurityModule.keyHost;
+				Configs.URL.HOST = currentHost;
+				if(SecurityModule.IsDebug)
+					System.out.println("key -- " + t.toString()+"\n"+"currentHost -- "+currentHost);
+				try {
+					KeyParam keyParam = new Gson().fromJson(t.toString(), new TypeToken<KeyParam>() {
+					}.getType());
+					String content = keyParam.getKey();
+					String password = MD5Util.getStringMD5_32(SecurityModule.keyToServer + SecurityModule.appendStr);
+					String val = AESSecurity.decrypt(content, password);
+					SecurityModule.KeyGet = val;
+					doAuthFromNet(flag);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			};
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				if(SecurityModule.IsDebug)
+					System.out.println("key -- "+SecurityModule.keyHost + SecurityModule.getGetKey() + " -- " + strMsg);
+				if(SecurityModule.keyHost.equals(Configs.URL.HOST1)){
+					SecurityModule.keyHost = Configs.URL.HOST2;
+				}else if(SecurityModule.keyHost.equals(Configs.URL.HOST2)){
+					SecurityModule.keyHost = Configs.URL.HOST3;
+				}else if(SecurityModule.keyHost.equals(Configs.URL.HOST3)){
+					Toast.makeText(mContext, "Pass002", Toast.LENGTH_LONG).show();
+					return;
+				}
+				findFromNet(flag);
+			};
+		});
+	}
+	private void doAuthFromNet(final boolean flag) {
+		// TODO Auto-generated method stub
 		FinalHttp finalHttp = new FinalHttp();
 		AjaxParams params=new AjaxParams();
 		String ver = SecurityModule.encryptParam(Tools.getVerName(mContext));
@@ -106,32 +167,22 @@ public class AuthService {
 		String appid = SecurityModule.encryptParam(Configs.URL.APP_ID);
 		String mac = SecurityModule.encryptParam(Configs.URL.MAC);
 		String key = SecurityModule.getKeyParam();
-//		System.out.println("mac = "+mac);
-//		System.out.println("cpuid = "+cpuid);
-//		System.out.println("cpukey = "+cpukey);
-//		System.out.println("appid = "+appid);
-//		System.out.println("Model = "+Model);
-//		System.out.println("ver = "+ver);
-//		System.out.println("key = "+key);
 		params.put("ver", ver);
 		params.put("cpuid", cpuid);
 		params.put("cpukey", cpukey);
-		params.put("Model", Model);
+		params.put("model", Model);
 		params.put("appid", appid);
 		params.put("mac", mac);
 		params.put("key", key);
-		
-//		String urlTest = Configs.URL.getAuthApi()+"appid="+appid+"&mac="+mac+"&cpuid="+cpuid+"&cpukey="+cpukey+"&Model="+Model+"&ver="+ver+"&key="+key;
-//		System.out.println("authUrl = "+urlTest);
-		
-		finalHttp.post(Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
+		finalHttp.post(currentHost+Configs.URL.getAuthApi(), params,new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);
+				if(SecurityModule.IsDebug)
+					System.out.println("auth -- " + t.toString());
 				try {
-//					System.out.println("------------auth success="+t.toString());
 					mAuthInfo = new Gson().fromJson(t, AuthInfo.class);
-					// 初始化全局播放授权的link标识值
+					// 鍒濆鍖栧叏灞�鎾斁鎺堟潈鐨刲ink鏍囪瘑鍊�
 					// saveAllToCache(t);
 					if(mAuthInfo == null){
 						if (flag) {
@@ -142,8 +193,8 @@ public class AuthService {
 					}
 					db.SaveAuth(t);
 					if (Configs.Code.AUTH_OK.equals(mAuthInfo.getCode())) {
-						//鉴权成功，发送白名单
-						doAddWhiteList(mAuthInfo.getToken());
+						startNum = 0;//重设循环次数
+						AuthIp(mAuthInfo.getToken());
 						if (flag) {
 
 							mAuthHandler
@@ -169,71 +220,19 @@ public class AuthService {
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				super.onFailure(t, errorNo, strMsg);
-//				System.out.println("------------auth failed : "+strMsg);
-				logger.i("网络连接异常,strMsg=" + strMsg + "  errorNo=" + errorNo
-						+ "  flag=" + flag);
-
-				HostUtil.changeHost();
-
-				if (HostUtil.changeCount == Configs.Other.HOST_CHANGE_TIME) {// 三个主机地址都有问题
+				if(SecurityModule.IsDebug)
+					System.out.println("auth -- " +Configs.URL.getAuthApi()+" -- "+strMsg);
+				startNum ++;
+				if(startNum>=endNum){
 					Message msg = new Message();
 					msg.arg1 = errorNo;
 					msg.what = Configs.Failure.NETWORK_EXCEPTION;
 					mAuthHandler.sendMessage(msg);
-					HostUtil.changeCount = 0;
-				} else {
-					findFromNet(flag);
+				}else{
+					doAuthFromNet(flag);
 				}
 			}
 		});
-	}
-
-	/**
-	 * 添加白名单
-	 */
-	public void doAddWhiteList(String token) {
-		// TODO Auto-generated method stub
-		if(token == null)
-			return;
-		AjaxParams params = new AjaxParams();
-		params.put("key", SecurityModule.getKeyParam());
-		params.put("appid", SecurityModule.encryptParam(Configs.URL.APP_ID));
-		params.put("mac", SecurityModule.encryptParam(Configs.URL.MAC));
-		params.put("cpuid", SecurityModule.encryptParam(DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)));
-		params.put("cpukey", SecurityModule.encryptParam(DeviceFun.GetFileCpu()));
-		params.put("Model", SecurityModule.encryptParam(android.os.Build.MODEL));
-		params.put("token", MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
-		//print
-//		System.out.println("key="+SecurityModule.getKeyParam());
-//		System.out.println("appid="+SecurityModule.encryptParam(Configs.URL.APP_ID));
-//		System.out.println("mac="+SecurityModule.encryptParam(Configs.URL.MAC));
-//		System.out.println("cpuid before="+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication));
-//		System.out.println("cpukey before="+DeviceFun.GetFileCpu());
-//		System.out.println("Model="+SecurityModule.encryptParam(android.os.Build.MODEL));
-//		System.out.println("token="+MD5Utils.getMd5Value(token+DeviceFun.GetCpuId(MyApplication.iptvAppl1ication)+DeviceFun.GetFileCpu()+"xxx"));
-		new AjaxUtil().post(Configs.URL.addWhiteListApi(), params, new ajaxPostCallback2());
-	}
-	
-	class ajaxPostCallback2 implements AjaxUtil.PostCallback{
-
-		@Override
-		public void Success(String t) {
-			// TODO Auto-generated method stub
-//			System.out.println("success t.tostring="+t.toString());
-//			System.out.println("------------add whiteList success   "+t.toString());
-			if(t.toString().equals("0") || t.toString()=="0"){
-				MyApplication.white="0";
-				 
-			}
-		}
-
-		@Override
-		public void Failure(String host, int errorNo) {
-			// TODO Auto-generated method stub
-//			System.out.println("------------add whiteList failed");
-			logger.i("添加白名单失败"+"host="+host+" errorNo="+errorNo);
-		}
-		
 	}
 
 	/**

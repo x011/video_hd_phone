@@ -132,7 +132,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		initHandler();
 		initService();
 		initView();
-		timeStart();
+//		timeStart();
 		initAdapter();
 		mNavigationService.initList(mAuthInfo);// 鍙湁鎵ц杩欏彞鎵嶄細涓�绾т竴绾ц幏鍙栧悇绉嶅垪琛�
 

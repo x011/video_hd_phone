@@ -82,7 +82,7 @@ public class Configs {
 		} 
 		/**获取授权地址*/
 		public static String getAuthApi(){
-			return HOST+"AppNew/auth?";
+			return "AppNew/auth?";
 		}
 		/**添加白名单地址*/
 		public static String addWhiteListApi(){
