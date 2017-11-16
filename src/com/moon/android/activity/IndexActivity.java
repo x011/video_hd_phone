@@ -91,15 +91,15 @@ public class IndexActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (v == mBtnReload) {
-				//	deleteFile(Configs.CachePath.AUTH);
 					if (NetworkUtil.isConnectingToInternet(IndexActivity.this)){
 						showLoadContainer(true);
+						if(mAuthService == null)
+							mAuthService = new AuthService(mHandler, IndexActivity.this);
 						mAuthService.findFromNet(true);
 					}else{
 						showLoadContainer(false);
 						mHandler.sendEmptyMessage(Configs.NETWORK_NOT_CONNECT);
 					}
-					//checkNetwork();
 				} else if (v == mBtnCancel) {
 					finish();
 				}

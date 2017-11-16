@@ -34,7 +34,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
- 
+
 import com.ev.android.evodshd.plus.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,7 +42,7 @@ import com.moon.android.broadcast.MsgBroadcastReceiver;
 import com.moon.android.iptv.arb.film.Configs;
 import com.moon.android.iptv.arb.film.MsgService;
 import com.moon.android.iptv.arb.film.MyApplication;
-
+import com.moon.android.iptv.arb.film.RequestDAO;
 import com.moon.android.model.AuthInfo;
 import com.moon.android.model.Drama;
 import com.moon.android.model.KeyParam;
@@ -64,6 +64,7 @@ import com.moonclound.android.iptv.util.Logger;
 import com.moonclound.android.iptv.util.MD5Util;
 import com.moonclound.android.iptv.util.SecurityModule;
 import com.moonclound.android.iptv.util.StringUtil;
+import com.moonclound.android.iptv.util.UpdateData;
 import com.moonclound.android.view.CustomToast;
 import com.moonclound.android.view.PasswordDialog;
 
@@ -140,7 +141,22 @@ public class HomeActivity extends Activity implements OnClickListener {
 		startUpdatAndGetMsgService();
 		
 		// startActivity(new Intent(this,HistoryActivity.class));
-		
+		new Thread(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				System.out.println("--update");
+				UpdateData localUpdateData = RequestDAO.checkUpate(MyApplication.getApplication());
+//				Log.d("RequestDAOUPDATA", localUpdateData.toString());
+				if (null != localUpdateData) {
+					Intent intent = new Intent();
+					intent.setAction(Configs.BroadCast.UPDATE_MSG);
+					MyApplication.updateData = localUpdateData;
+					sendBroadcast(intent);
+				}
+			}
+		}.start();
 	}
 	
 	Handler xxmHandler=new Handler(){

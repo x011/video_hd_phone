@@ -14,17 +14,14 @@ import android.util.Log;
 public class MsgService extends Service{
 	
 	private Timer mMsgTimer = new Timer(true);
-	private Timer mUpgradeTimer = new Timer(true);
 	public static final long MSG_WHEN_FIRST_GET = 2 * 1000;
 	public static final long MSG_PERIOD = 600 * 1000;
-	public static final long UPGRADE_WHEN_GET = 5 * 1000;
 	private Logger logger = Logger.getInstance();
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		logger.i("get update and app message service create");
 		mMsgTimer.schedule(mMsgTimeTask, MSG_WHEN_FIRST_GET, MSG_PERIOD);
-		mUpgradeTimer.schedule(mUpgradeTimeTask, UPGRADE_WHEN_GET);
 		return;
 	}
 	
@@ -41,21 +38,6 @@ public class MsgService extends Service{
 		}
 	};
 	
-	private TimerTask mUpgradeTimeTask = new TimerTask(){
-		@Override
-		public void run() {
-			UpdateData localUpdateData = RequestDAO.checkUpate(MyApplication.getApplication());
-//			Log.d("RequestDAOUPDATA", localUpdateData.toString());
-			if (null != localUpdateData) {
-				
-				Intent intent = new Intent();
-				intent.setAction(Configs.BroadCast.UPDATE_MSG);
-				MyApplication.updateData = localUpdateData;
-				sendBroadcast(intent);
-			}
-		}
-	};
-	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		return null;
@@ -64,7 +46,6 @@ public class MsgService extends Service{
 	@Override
 	public void onDestroy() {
 		try{
-			mUpgradeTimer.cancel();
 			mMsgTimer.cancel();
 		}catch(Exception e){
 			e.printStackTrace();
