@@ -1,19 +1,27 @@
 package com.moonclound.android.iptv.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.moon.android.iptv.arb.film.Configs;
+import com.moon.android.model.AllListModel;
 import com.moon.android.model.Model_Collcetion;
+import com.moon.android.model.SeconMenu;
+import com.moon.android.model.VodParam;
+import com.moon.android.model.VodProgram;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import io.vov.vitamio.utils.CPU;
 
 public class DbUtil extends SQLiteOpenHelper {
 	public SQLiteDatabase db;
@@ -43,8 +51,10 @@ public class DbUtil extends SQLiteOpenHelper {
 				"CREATE TABLE IF NOT EXISTS collcetion (id integer primary key autoincrement, sid INTEGER UNIQUE,cid INTEGER,json varchar(255))");
 		db.execSQL(
 				"CREATE TABLE IF NOT EXISTS JsonList (id integer primary key autoincrement, jsonId INTEGER UNIQUE, json text)");
+//		db.execSQL(
+//				"CREATE TABLE IF NOT EXISTS ProgramListTag (id integer primary key autoincrement, sid INTEGER UNIQUE, tag varchar(255), dspwd char(1))");
 		db.execSQL(
-				"CREATE TABLE IF NOT EXISTS ProgramListTag (id integer primary key autoincrement, sid INTEGER UNIQUE, tag varchar(255), dspwd char(1))");
+				"CREATE TABLE IF NOT EXISTS ProgramListTag (sid INTEGER UNIQUE, tag varchar(255), dspwd char(1))");
 	}
 
 	@Override
@@ -312,6 +322,30 @@ public class DbUtil extends SQLiteOpenHelper {
 			db.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+	}
+	
+	public void SaveProgramTagByTransaction(List<VodParam> vpList) {
+		if (vpList == null || vpList.size() <= 0)
+			return;
+		db = getReadableDatabase();
+		db.beginTransaction();
+		try {
+			for(VodParam vp : vpList){
+				String sid = vp.getSid();
+				String key = vp.getKey();
+				String dspwd = vp.getIsdspwd();
+				if(sid == null || key ==null || dspwd == null)
+					continue;
+				db.execSQL("REPLACE INTO ProgramListTag(sid,tag,dspwd) values(?,?,?)", new Object[] { sid, key, dspwd });
+			}
+		    db.setTransactionSuccessful();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		    db.endTransaction();
+		    db.close();
+		    System.out.println("db finish : "+new SimpleDateFormat("mm:ss").format(new Date()));
 		}
 	}
 

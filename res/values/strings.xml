@@ -86,4 +86,5 @@
     <string name="resultsearch_txt">The results</string>
     <string name="txt3">Sorry,no search results</string>
     <string name="txt4">You can try another keyword!</string>
+    <string name="nofilm">The resources are being updated, please wait a moment...</string>
 </resources>

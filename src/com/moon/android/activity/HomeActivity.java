@@ -405,9 +405,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 					mVodProgramList.addAll(list);
 					mProgramAdapter.notifyDataSetChanged();
 					
-				
-//					mGridVodShow.setSelection(0);
-//					mGridVodShow.requestFocus();
+					//重置第一项选中
+					if(list == null || list.size()<=0){}else{
+						mGridVodShow.setSelection(0);
+//						mGridVodShow.requestFocus();
+					}
 					mTotalItemCount = mProgramAdapter.getCount();
 					mCurrentSelection = 0;
 					resetPagePrompt(mCurrentSelection, mTotalItemCount);

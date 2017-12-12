@@ -1,6 +1,8 @@
 package com.moon.android.moonplayer.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,7 @@ import com.moon.android.model.AllListModel;
 import com.moon.android.model.Navigation;
 import com.moon.android.model.VodProgram;
 import com.moon.android.model.SeconMenu;
+import com.moon.android.model.VodParam;
 import com.moonclound.android.iptv.util.DbUtil;
 import com.moonclound.android.iptv.util.Logger;
 
@@ -96,7 +99,8 @@ public class ListCacheService {
 
 	public void goHome() {
 
-		DBUpdateList();// 执行list提取存储，以待查询
+//		DBUpdateList();// 执行list提取存储，以待查询
+		DBUpdateListByTransaction();
 
 		mIndex.finish();
 		mIndex.startActivity(new Intent(mIndex, HomeActivity.class));
@@ -253,7 +257,6 @@ public class ListCacheService {
 						return;
 					for (int i = 0; i < AllListCache.size(); i++) {
 						final AllListModel listModel = AllListCache.get(i);
-						
 						if (i == AllListCache.size() - 1 && Configs.isLastNeedPassword) {
 							new Thread() {
 								@Override
@@ -300,6 +303,52 @@ public class ListCacheService {
 			// TODO: handle exception
 			if (newThread != null)
 				newThread.interrupt();
+		}
+	}
+	
+	private List<VodParam> vpList = new ArrayList<VodParam>(); 
+	//使用事物添加数据
+	private void DBUpdateListByTransaction() {
+		try {
+			System.out.println("-----DBUpdateListByTransaction-----");
+			if (AllListCache == null || AllListCache.size() <= 0)
+				return;
+			for (int i = 0; i < AllListCache.size(); i++) {
+				AllListModel listModel = AllListCache.get(i);
+				if(listModel == null)
+					continue;
+				if (i == AllListCache.size() - 1 && Configs.isLastNeedPassword) {
+					for (int j = 0; j < listModel.submenu.size(); j++) {
+						SeconMenu sMenu = listModel.submenu.get(j);
+						if(sMenu == null)
+							continue;
+						for (int k = 0; k < sMenu.content.size(); k++) {
+							VodProgram vProgram = sMenu.content.get(k);
+							if(vProgram == null)
+								continue;
+							vProgramMap.put(vProgram.getSid(), vProgram);
+							vpList.add(new VodParam(vProgram.getSid(), vProgram.getKey(), Configs.ISDSPWD));
+						}
+					}
+				} else {
+					for (int j = 0; j < listModel.submenu.size(); j++) {
+						SeconMenu sMenu = listModel.submenu.get(j);
+						if(sMenu == null)
+							continue;
+						for (int k = 0; k < sMenu.content.size(); k++) {
+							VodProgram vProgram = sMenu.content.get(k);
+							if(vProgram == null)
+								continue;
+							vProgramMap.put(vProgram.getSid(), vProgram);
+							vpList.add(new VodParam(vProgram.getSid(), vProgram.getKey(), Configs.NORDSPWD));
+						}
+					}
+				}
+			}
+			System.out.println(vpList.size()+" db start : "+new SimpleDateFormat("mm:ss").format(new Date()));
+			db.SaveProgramTagByTransaction(vpList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

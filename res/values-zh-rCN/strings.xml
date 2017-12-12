@@ -85,5 +85,6 @@
     <string name="resultsearch_txt">搜索结果</string>
     <string name="txt3">很抱歉，没有搜索结果</string>
     <string name="txt4">换个关键词试试吧！</string>
+    <string name="nofilm">资源更新中，请稍候...</string>
     
 </resources>

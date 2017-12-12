@@ -125,6 +125,8 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	private int mSecondRemain;
 	private Timer mSecondTimer;
 	private String tvOrPad = "0";//0为机顶盒，1为pad
+	private TextView mTv_nofilm;
+	private int startNum = 1, endNum = 3;//取详情次数
 
 	// private Button mBt_collect,mBt_cacel_coll;
 	@Override
@@ -221,7 +223,14 @@ public class VodsActivity extends Activity implements OnKeyListener {
 					break;
 				case Configs.Handler.PROGRAM_DETAIL_PARSE_FAILURE:
 				case Configs.Handler.PROGRAM_DETAIL_NULL:
-					new CustomToast(VodsActivity.this, getString(R.string.get_program_detail_failure)).show();
+//					new CustomToast(VodsActivity.this, getString(R.string.get_program_detail_failure)).show();
+					System.out.println(startNum+"-- get cli failed....");
+					if(startNum<endNum){
+						startNum ++;
+						getVodDetailData();
+					}else{
+						return;
+					}
 					break;
 				}
 			}
@@ -272,6 +281,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	}
 
 	private void initWidget() {
+		mTv_nofilm = (TextView) findViewById(R.id.tv_nofilm);
 		mTextVodName = (TextView) findViewById(R.id.vod_name);
 		mGridVod = (GridView) findViewById(R.id.vod_grid);
 		mImageView = (ImageView) findViewById(R.id.vods_image);
@@ -495,12 +505,22 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		for (int i = startPos; i < endPos; i++) {
 			listVodVideo.add(mListVodVideo.get(i));
 		}
-		VideoAdapter vodAdapter = new VideoAdapter(getApplicationContext(), listVodVideo);
-		mGridVod.setAdapter(vodAdapter);
-		mGridVod.requestFocus();
-		String constantPage = getString(R.string.page);
-		mTextPage.setText("/" + mTotalPage + constantPage);
-		mTextCurrentPage.setText(String.valueOf(mCurrentPage + 1));
+		if(listVodVideo == null || listVodVideo.size()<=0){
+			if(mTv_nofilm != null)
+				mTv_nofilm.setVisibility(View.VISIBLE);
+			String constantPage = getString(R.string.page);
+			mTextPage.setText("/" + mTotalPage + constantPage);
+			mTextCurrentPage.setText("0");
+		}else{
+			if(mTv_nofilm != null)
+				mTv_nofilm.setVisibility(View.GONE);
+			VideoAdapter vodAdapter = new VideoAdapter(getApplicationContext(), listVodVideo);
+			mGridVod.setAdapter(vodAdapter);
+			mGridVod.requestFocus();
+			String constantPage = getString(R.string.page);
+			mTextPage.setText("/" + mTotalPage + constantPage);
+			mTextCurrentPage.setText(String.valueOf(mCurrentPage + 1));
+		}
 	}
 
 	private void showNetImage(String imageUrl) {
@@ -681,11 +701,19 @@ public class VodsActivity extends Activity implements OnKeyListener {
 		public void onFailure(Throwable t, int errorNo, String strMsg) {
 			super.onFailure(t, errorNo, strMsg);
 			if (!dbCacheList()) {
-				mHandler.sendEmptyMessage(Configs.FAIL);
+				if(cliStartNum<=cliEndNum){
+					cliStartNum++;
+					getVodData();
+				}else{
+					cliStartNum = 1;
+					mHandler.sendEmptyMessage(Configs.FAIL);
+				}
 			}
 
 		};
 	};
+	private int cliStartNum = 1;
+	private int cliEndNum = 3;
 
 	public boolean dbCacheList() {
 		String dbCache = db.GetVodJson(mVodProgram.getSid());

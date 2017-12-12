@@ -16,12 +16,13 @@ import com.moonclound.android.iptv.util.Logger;
 import com.moonclound.android.iptv.util.StringUtil;
 import com.moonclound.android.view.CustomToast;
 import com.moonclound.android.view.PasswordDialog;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -79,6 +80,20 @@ public class SearchActivity extends Activity {
 		initData();
 	}
 
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 555:
+				notifyDataByTag(enter_txt.getText().toString());
+				break;
+
+			default:
+				break;
+			}
+		};
+	};
+	
 	private void initData() {
 		// TODO Auto-generated method stub
 		lAdapter = new LetterAdapter(mContext, letterList);
@@ -401,7 +416,8 @@ public class SearchActivity extends Activity {
 		@Override
 		public void afterTextChanged(Editable arg0) {
 			// TODO Auto-generated method stub
-			notifyDataByTag(enter_txt.getText().toString());
+//			notifyDataByTag(enter_txt.getText().toString());
+			mHandler.sendEmptyMessage(555);
 		}
 
 		@Override
@@ -420,8 +436,6 @@ public class SearchActivity extends Activity {
 
 	// 模糊查询,刷新UI
 	private void notifyDataByTag(String Tag) {
-		// System.out.println("map all size () = " + vodProgramMap.size());
-
 		mVodProgramList.clear();
 		try {
 			Map<String, String> map = db.GetProgramListByTags(Tag);// key：影片sid
@@ -434,6 +448,7 @@ public class SearchActivity extends Activity {
 					mVodProgramList.add(vProggram);
 				}
 			}
+//			System.out.println("result size = "+mVodProgramList.size());
 			if (mVodProgramList == null) {
 				showView(false);
 				return;
