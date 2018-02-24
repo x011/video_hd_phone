@@ -158,10 +158,10 @@ public final class R {
 	}
 	public static final class layout {
 		public static final int activity_main_vitamio = 0x7f040004;
-		public static final int display_mode_item = 0x7f04000c;
-		public static final int myplayer = 0x7f040013;
-		public static final int myplayer720 = 0x7f040014;
-		public static final int vod_item = 0x7f040019;
+		public static final int display_mode_item = 0x7f04000d;
+		public static final int myplayer = 0x7f040014;
+		public static final int myplayer720 = 0x7f040015;
+		public static final int vod_item = 0x7f04001a;
 	}
 	public static final class mipmap {
 		public static final int ic_launcher = 0x7f030000;

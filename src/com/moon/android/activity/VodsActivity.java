@@ -1,7 +1,9 @@
 package com.moon.android.activity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -132,8 +134,9 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(AppUtils.isTablet4(VodsActivity.this)){
-			tvOrPad = "1";
+		getIntentData();
+		if(tvOrPad.equals("1")){
+//			System.out.println("--------------------is pad");
 			setContentView(R.layout.activity_vods_600);
 			mLinearPage_bt = (LinearLayout) findViewById(R.id.page_bt);
 			mIB_PageUp = (ImageButton) findViewById(R.id.page_up);
@@ -143,12 +146,11 @@ public class VodsActivity extends Activity implements OnKeyListener {
 			VOD_GRID_ROW=999;
 			VOD_PER_PAGE = VOD_GRID_COLUMN * VOD_GRID_ROW;
 		}else{
-			tvOrPad = "0";
+//			System.out.println("--------------------is stb");
 			setContentView(R.layout.activity_vods);
 		}
 		initHandler();
 		initOption();
-		getIntentData();
 		initWidget();
 		initAd();
 		getVodData();
@@ -651,6 +653,7 @@ public class VodsActivity extends Activity implements OnKeyListener {
 	private void getIntentData() {
 		Intent intent = getIntent();
 		isAutoPlay = intent.getStringExtra("isAuto");
+		tvOrPad = Configs.tvOrPad;
 		mCid = intent.getStringExtra(Configs.INTENT_PARAM_2);
 		mVodProgram = (VodProgram) intent.getSerializableExtra(Configs.INTENT_PARAM);
 	}

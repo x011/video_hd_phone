@@ -207,7 +207,7 @@
                     style="@style/text_1_0f69bd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZTJ" />
+                    android:text="@string/demo" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

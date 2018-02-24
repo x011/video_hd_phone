@@ -88,4 +88,33 @@
     <string name="txt3">很抱歉，沒有搜索結果</string>
     <string name="txt4">換個關鍵詞試試吧！</string>
     <string name="nofilm">資源更新中，請稍候...</string>
+    <string name="demo">ㄗㄊㄐ</string>
+    <!-- 
+    <string name="a">ㄚ</string>
+    <string name="b">ㄅ</string>
+    <string name="c">ㄘ</string>
+    <string name="d">ㄉ</string>
+    <string name="e">ㄜ</string>
+    <string name="f">ㄈ</string>
+    <string name="g">ㄍ</string>
+    <string name="h">ㄏ</string>
+    <string name="i">ㄞ</string>
+    <string name="j">ㄐ</string>
+    <string name="k">ㄎ</string>
+    <string name="l">ㄌ</string>
+    <string name="m">ㄇ</string>
+    <string name="n">ㄋ</string>
+    <string name="o">ㄛ</string>
+    <string name="p">ㄆ</string>
+    <string name="q">ㄑ</string>
+    <string name="r">ㄖ</string>
+    <string name="s">ㄙ</string>
+    <string name="t">ㄊ</string>
+    <string name="u">ㄨ</string>
+    <string name="v">ㄩ</string>
+    <string name="w">ㄨ</string>
+    <string name="x">ㄒ</string>
+    <string name="y">ㄧ</string>
+    <string name="z">ㄗ</string>
+     -->
 </resources>

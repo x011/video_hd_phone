@@ -2,6 +2,7 @@ package com.moon.android.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.ev.android.evodshd.plus.R;
@@ -47,7 +48,7 @@ public class SearchActivity extends Activity {
 	TextView tv_page;
 	EditText enter_txt;
 	private GridView letterGv, searchGV;
-	List<String> letterList;
+	List<String> letterList,letterTxtList;
 	LetterAdapter lAdapter;
 	public static final int VOD_SEARCH_GRID_COLUMN = 4;
 	private ProgramSearchAdapter mProgramAdapter;
@@ -62,12 +63,19 @@ public class SearchActivity extends Activity {
 	ImageView image_back, image_space, image_clear;
 	TextView txt_back, txt_space, txt_clear;
 	TextView result_search;
+	String locale = "US";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
+		locale = Locale.getDefault().getCountry();
+//		System.out.println("locale = " + locale);
+
+		if (isLocaleTW())
+			setContentView(R.layout.activity_search_tw);
+		else
+			setContentView(R.layout.activity_search);
 
 		mContext = SearchActivity.this;
 
@@ -75,11 +83,21 @@ public class SearchActivity extends Activity {
 		db = new DbUtil(mContext);
 		vodProgramMap = ListCacheService.getAllProgramMap();
 
-		initLetterList();
+		initLetterList(isLocaleTW());
 		initwidget();
 		initData();
 	}
 
+	private boolean isLocaleTW() {
+		// TODO Auto-generated method stub
+		if (locale == null || locale.equals(""))
+			return false;
+		else if (locale.equals("TW"))
+			return true;
+		else
+			return false;
+	}
+	
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -344,7 +362,16 @@ public class SearchActivity extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View v, int pos, long arg3) {
 			// TODO Auto-generated method stub
 			clearDefaultTxt();
-			enter_txt.append(letterList.get(pos));
+			//搜索字符--默认
+//			enter_txt.append(letterList.get(pos));
+			//搜索字符--字母
+			if (letterTxtList == null || letterTxtList.size() <= 0)
+				return;
+			try {
+				enter_txt.append(letterTxtList.get(pos).charAt(0)+"");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 		}
 	};
@@ -370,45 +397,144 @@ public class SearchActivity extends Activity {
 	}
 
 	// 初始化搜索字符
-	private void initLetterList() {
+	private void initLetterList(boolean isLocaleTW) {
 		// TODO Auto-generated method stub
 		letterList = new ArrayList<String>();
-		letterList.add("A");
-		letterList.add("B");
-		letterList.add("C");
-		letterList.add("D");
-		letterList.add("E");
-		letterList.add("F");
-		letterList.add("G");
-		letterList.add("H");
-		letterList.add("I");
-		letterList.add("J");
-		letterList.add("K");
-		letterList.add("L");
-		letterList.add("M");
-		letterList.add("N");
-		letterList.add("O");
-		letterList.add("P");
-		letterList.add("Q");
-		letterList.add("R");
-		letterList.add("S");
-		letterList.add("T");
-		letterList.add("U");
-		letterList.add("V");
-		letterList.add("W");
-		letterList.add("X");
-		letterList.add("Y");
-		letterList.add("Z");
-		letterList.add("0");
-		letterList.add("1");
-		letterList.add("2");
-		letterList.add("3");
-		letterList.add("4");
-		letterList.add("5");
-		letterList.add("6");
-		letterList.add("7");
-		letterList.add("8");
-		letterList.add("9");
+		letterTxtList = new ArrayList<String>();
+		if(isLocaleTW){
+			letterList.add("ㄅ");
+			letterList.add("ㄆ");
+			letterList.add("ㄇ");
+			letterList.add("ㄈ");
+			letterList.add("ㄉ");
+			letterList.add("ㄊ");
+			letterList.add("ㄋ");
+			letterList.add("ㄌ");
+			letterList.add("ㄍ");
+			letterList.add("ㄎ");
+			letterList.add("ㄏ");
+			letterList.add("ㄐ");
+			letterList.add("ㄑ");
+			letterList.add("ㄒ");
+			letterList.add("ㄓ");
+			letterList.add("ㄔ");
+			letterList.add("ㄕ");
+			letterList.add("ㄖ");
+			letterList.add("ㄗ");
+			letterList.add("ㄘ");
+			letterList.add("ㄙ");
+			letterList.add("ㄧ");
+			letterList.add("ㄨ");
+			letterList.add("ㄩ");
+			letterList.add("ㄚ");
+			letterList.add("ㄛ");
+			letterList.add("ㄜ");
+			letterList.add("ㄝ");
+			letterList.add("ㄞ");
+			letterList.add("ㄟ");
+			letterList.add("ㄠ");
+			letterList.add("ㄡ");
+			letterList.add("ㄢ");
+			letterList.add("ㄣ");
+			letterList.add("ㄤ");
+			letterList.add("ㄥ");
+			letterList.add("ㄦ");
+			letterList.add("0");
+			letterList.add("1");
+			letterList.add("2");
+			letterList.add("3");
+			letterList.add("4");
+			letterList.add("5");
+			letterList.add("6");
+			letterList.add("7");
+			letterList.add("8");
+			letterList.add("9");
+			letterTxtList.add("B");
+			letterTxtList.add("P");
+			letterTxtList.add("M");
+			letterTxtList.add("F");
+			letterTxtList.add("D");
+			letterTxtList.add("T");
+			letterTxtList.add("N");
+			letterTxtList.add("L");
+			letterTxtList.add("G");
+			letterTxtList.add("K");
+			letterTxtList.add("H");
+			letterTxtList.add("J");
+			letterTxtList.add("Q");
+			letterTxtList.add("X");
+			letterTxtList.add("ZH");
+			letterTxtList.add("CH");
+			letterTxtList.add("SH");
+			letterTxtList.add("R");
+			letterTxtList.add("Z");
+			letterTxtList.add("C");
+			letterTxtList.add("S");
+			letterTxtList.add("Y");
+			letterTxtList.add("W");
+			letterTxtList.add("Y");
+			letterTxtList.add("A");
+			letterTxtList.add("O");
+			letterTxtList.add("E");
+			letterTxtList.add("E");
+			letterTxtList.add("AI");
+			letterTxtList.add("EI");
+			letterTxtList.add("AO");
+			letterTxtList.add("OU");
+			letterTxtList.add("AN");
+			letterTxtList.add("EN");
+			letterTxtList.add("ANG");
+			letterTxtList.add("ENG");
+			letterTxtList.add("ER");
+			letterTxtList.add("0");
+			letterTxtList.add("1");
+			letterTxtList.add("2");
+			letterTxtList.add("3");
+			letterTxtList.add("4");
+			letterTxtList.add("5");
+			letterTxtList.add("6");
+			letterTxtList.add("7");
+			letterTxtList.add("8");
+			letterTxtList.add("9");
+		}else{
+			letterList.add("A");
+			letterList.add("B");
+			letterList.add("C");
+			letterList.add("D");
+			letterList.add("E");
+			letterList.add("F");
+			letterList.add("G");
+			letterList.add("H");
+			letterList.add("I");
+			letterList.add("J");
+			letterList.add("K");
+			letterList.add("L");
+			letterList.add("M");
+			letterList.add("N");
+			letterList.add("O");
+			letterList.add("P");
+			letterList.add("Q");
+			letterList.add("R");
+			letterList.add("S");
+			letterList.add("T");
+			letterList.add("U");
+			letterList.add("V");
+			letterList.add("W");
+			letterList.add("X");
+			letterList.add("Y");
+			letterList.add("Z");
+			letterList.add("0");
+			letterList.add("1");
+			letterList.add("2");
+			letterList.add("3");
+			letterList.add("4");
+			letterList.add("5");
+			letterList.add("6");
+			letterList.add("7");
+			letterList.add("8");
+			letterList.add("9");
+			letterTxtList = letterList;
+		}
 	}
 
 	private TextWatcher textWatcher = new TextWatcher() {

@@ -7,6 +7,7 @@ import com.ev.player.util.MACUtils;
 
 public class Configs {
 	
+	public static String tvOrPad = "0";//0为机顶盒，1为pad
 	//
 	public static final String NORDSPWD = "0";
 	public static final String ISDSPWD = "1";// 限制级影片

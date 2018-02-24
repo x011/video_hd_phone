@@ -1,6 +1,8 @@
 package com.moon.android.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +31,7 @@ import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -60,6 +63,7 @@ import com.mooncloud.android.iptv.database.PasswordDAO;
 import com.mooncloud.heart.beat.Beat;
 import com.moonclound.android.iptv.util.AESSecurity;
 import com.moonclound.android.iptv.util.ActivityUtils;
+import com.moonclound.android.iptv.util.AppUtils;
 import com.moonclound.android.iptv.util.Logger;
 import com.moonclound.android.iptv.util.MD5Util;
 import com.moonclound.android.iptv.util.SecurityModule;
@@ -156,6 +160,15 @@ public class HomeActivity extends Activity implements OnClickListener {
 					sendBroadcast(intent);
 				}
 			}
+		}.start();
+		new Thread(){
+			@Override
+			public void run() {
+				super.run();
+				if(AppUtils.isTablet4(HomeActivity.this))
+					Configs.tvOrPad = "1";
+//				System.out.println("tvOrPad = "+Configs.tvOrPad);
+			};
 		}.start();
 	}
 	
